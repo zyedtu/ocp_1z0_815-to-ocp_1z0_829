@@ -232,8 +232,8 @@ Maintenant que vous savez ce que sont les exceptions, voyons comment les gérer.
 * try: Le mot-clé try  
 * { }: Des accolades bouclées sont nécessaires(Curly braces are required).  
 * catch: Le mot-clé catch.  
-*  exception_type: Le type d'exception que vous essayez d'attraper.   
-* dentifier: L'identificateur fait référence à l'objet d'exception intercepté.   
+* exception_type: Le type d'exception que vous essayez d'attraper.   
+* identifier: L'identificateur fait référence à l'objet d'exception intercepté.   
 
 Le code du bloc try est exécuté normalement. Si l'une des instructions lève une exception qui peut être interceptée par le type d'exception répertorié dans le bloc catch, le bloc try cesse de s'exécuter et l'exécution passe à l'instruction catch. Si aucune des instructions du bloc try ne lève une exception pouvant être interceptée, la clause catch n'est pas exécutée.   
 Vous avez probablement remarqué que les mots *bloc* et *clause* sont interchangeables. L'examen le fait également, alors nous vous y habituons. Les deux sont corrects. Block est correct car il y a des accolades présentes. Clause est correct car ils font partie d'une instruction try.   
