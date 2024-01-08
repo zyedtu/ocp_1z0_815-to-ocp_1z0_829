@@ -615,7 +615,7 @@ Le tableau ci-dessous, montre les méthodes pratiques sur les interfaces fonctio
 | Predicate             | Predicate            | negate()         | —                     |
 | Predicate             | Predicate            | or()             | Predicat              |
 
-Commençons par ces deux variables de prédicat:  
+Commençons par ces deux variables de **prédicat**:  
 
 	Predicate<String> egg = s -> s.contains("egg");
 	Predicate<String> brown = s -> s.contains("brown");
@@ -629,7 +629,14 @@ Cela fonctionne, mais ce n'est pas génial. C’est un peu long à lire et il co
 	Predicate<String> otherEggs = egg.and(brown.negate());
 Soigné! Nous réutilisons maintenant la logique des variables Predicate d'origine pour en créer deux nouvelles. La relation entre les variables est plus courte et plus claire. Nous pouvons également changer l'orthographe de egg à un endroit, et les deux autres objets auront une nouvelle logique car ils y font référence.   
 
-Passons maintenant à Consumer, examinons la méthode andThen(), qui exécute deux interfaces fonctionnelles en séquence:   
+Testant maintenant la méthode or, prenons deux prédicats une qui teste la longueur de la chaine et suppérieur à 10 et la deuxième contrôle si la chaine contient la lettre a, avec la méthode or() on peut tester le deux logique sur la même chaine:  
+
+	Predicate<String> greaterThanTen = s -> (s.length() > 10);
+	Predicate<String> containA = s -> s.contains("a");
+	
+	System.out.println(greaterThanTen.or(containA).test("Bear")); // true
+
+Passons maintenant à **Consumer**, examinons la méthode andThen(), qui exécute deux interfaces fonctionnelles en séquence:   
 
 	Consumer<String> c1 = x -> System.out.print("1: " + x);
 	Consumer<String> c2 = x -> System.out.print(",2: " + x);
