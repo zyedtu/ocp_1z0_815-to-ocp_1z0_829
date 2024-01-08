@@ -8,7 +8,7 @@
 # [Chapter 08: Advanced Class Design - Beyond Classes](https://github.com/zyedtu/ocp_1z0_815-to-ocp_1z0_829/blob/master/src/ocp/chapiter08/README.md)
 # [Chapter 09: EXCEPTION](https://github.com/zyedtu/ocp_1z0_815-to-ocp_1z0_829/blob/master/src/ocp/chapiter09/README.md)
 # [Chapter 10: Lambdas And Functional Interfaces](https://github.com/zyedtu/ocp_1z0_815-to-ocp_1z0_829/blob/master/src/ocp/chapiter10/README.md)
-# [Chapter 11: Java Stream API](https://github.com/zyedtu/ocp_1z0_815-to-ocp_1z0_829/blob/master/src/ocp/chapiter10/README.md)
+# [Chapter 11: Java Stream API](https://github.com/zyedtu/ocp_1z0_815-to-ocp_1z0_829/tree/master/src/ocp/chapiter11/README.md)
 # [Chapter 12: Modules](https://github.com/zyedtu/ocp_1z0_815-to-ocp_1z0_829/blob/master/src/ocp/chapiter12/README.md)
 # [Chapter 13: DESIGN PATTERN](https://github.com/zyedtu/ocp_1z0_815-to-ocp_1z0_829/blob/master/src/ocp/chapiter13/README.md)
 
