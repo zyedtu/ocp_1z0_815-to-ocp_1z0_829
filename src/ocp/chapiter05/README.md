@@ -1048,11 +1048,11 @@ Prenons la classe Card ci-dessous, au premier lieu on va redéfinir juste la mé
 L'échec de la classe Card est du au non redéfinition de la méthode hashCode, fait que les deux instances égales ont des codes de hachage inégaux, **en violation du contrat hashCode**.    
 ##### Logic for get and put Operations for Java Hash table (Hash Collision):  
 En term très simple, l'implementations da tables de hachage Java utilisent la logique suivante pour les opération get et put.  
-1. Identifier d'abort le "bucket" en utilisant le hash code de la clé "Key" de HashMap.   
+1. Identifier d'abort le "bucket" en utilisant **le hash code de la clé "Key" de HashMap**.   
 2. S'il n'a pas d'objects dans le "bucket" avec le même hash code alors:   
   . on ajoute l'objet pour la méthode **put**.  
   . on retourne la valeur null avec la méthode **get**.    
-3. Si on trouve un object dans le "bucket" avec le même hash code, alors la méthode equals sera solicitéé:    
+3. Si on trouve un object dans le "bucket" avec le même hash code, alors **la méthode equals de la clé "Key" de HashMap** sera solicitée:    
 	. Si equals() retoune true, avec **put** on ecrasse l'ancien object et on met le nouveau, et avec **get** on retourne l'objet.   
 	. Si equals() retourn false, avec **put** on ajoute le nouveau objet dans une nouvelle entrée de buket, et avec **get** on retourne null.     
 
