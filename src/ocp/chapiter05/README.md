@@ -598,9 +598,9 @@ Est une implémentation de table de hachage et de liste chaînée de l'interface
 ### Interface Set:
 L'interface java.util.set est un sous type de l'interface java.util.Collections . Il représente un ensemble d'objets dans lequel on ne peut pas trouver de doublons. L'interface set contient seulement les méthodes héritées de Collections.     
 La plateforme Java comporte 3 implémentations de Set:  
-• HashSet
-• TreeSet
-• LinkedHashSet
+• HashSet    
+• TreeSet    
+• LinkedHashSet      
 
 # Comprendre une ArrayList: (Understanding an ArrayList)  
 Un tableau a un inconvénient flagrant: vous devez savoir combien d'éléments seront dans le tableau lorsque vous le créez, puis vous êtes coincé avec ce choix.   
