@@ -584,22 +584,23 @@ ArrayList et LinkedList implémentent tous deux l'interface List et leurs métho
 ### L'interface Map:   
 Une Map est un objet qui mappe des clés à des valeurs. Une carte (Map) **ne peut pas contenir de clés en double**. Il existe 4 principales implémentations des interfaces Map : HashMap, Hashtable, TreeMap et LinkedHashMap.   
 ##### HashMap:    
-HashMap est une classe de collection basée sur Map qui est utilisée pour stocker des paires clé et valeur, elle est désignée par HashMap<Key, Value> ou HashMap<K, V>. Cette classe ne donne aucune garantie quant à l'ordre de la carte (ce n'est pas une collection ordonnée). Elle est similaire à la classe Hashtable sauf qu'elle n'est pas synchronisée et autorise les valeurs nulles (valeurs nulles et clé nulle).
+HashMap est une classe de collection basée sur Map qui est utilisée pour stocker des paires clé et valeur, elle est désignée par HashMap<Key, Value> ou HashMap<K, V>. Cette classe ne donne aucune garantie quant à l'ordre de la carte (ce n'est pas une collection ordonnée). Elle est similaire à la classe Hashtable sauf qu'elle n'est pas synchronisée et **autorise les valeurs nulles (valeurs nulles et clé nulle)**.
 ##### Hashtable:   
-Cette classe implémente une table de hachage, qui mappe les clés aux valeurs. Tout objet **non nul** peut être utilisé comme clé ou comme valeur. Hashtable est similaire à HashMap sauf qu'il est **synchronisé** et n'autorise pas les clés nulles et les valeurs nulles.     
+Cette classe implémente une table de hachage, qui mappe les clés aux valeurs. Tout objet **non nul** peut être utilisé comme clé ou comme valeur. Hashtable est similaire à HashMap sauf qu'il est **synchronisé convient pour les opérations thread-safe**, et **n'autorise pas les clés nulles et les valeurs nulles**.     
 la compilation passe mais on aura **NullPointerException** en runtime.  
 ##### TreeMap:   
-La classe TreeMap implémente une interface Map similaire à la HashMap classe. La principale différence entre eux est que HashMap est une collection non ordonnée,alors que TreeMap est trié dans l'ordre croissant de ses clés.   
+La classe TreeMap implémente une interface Map similaire à la HashMap classe. La principale différence entre eux est que HashMap est une collection non ordonnée,alors que TreeMap **est trié dans l'ordre croissant de ses clés**.   
 ##### LinkedHashMap: 
-est une implémentation de table de hachage et de liste chaînée de l'interface Map, avec un ordre d'itération prévisible. Cette implémentation diffère de HashMap en ce qu'elle maintient une liste à double liaison s'étendant sur toutes ses entrées. Cette liste chaînée définit l'ordre des itérations, qui est normalement l'ordre dans lequel les clés ont été insérées dans la carte (ordre d'insertion).      
-* Remarque:  HashMap, TreeMap, et LinkedHashMap sont des classes de collection non synchronisées, ce qui signifie qu'elles ne convient pas aux opérations thread-safe jusqu'à ce qu'elles soient explicitement synchronisées.   
+Est une implémentation de table de hachage et de liste chaînée de l'interface Map, Le LinkedHashMap est assez similaire au HashMap, avec une fonctionnalité supplémentaire permettant de **conserver l'ordre de l'élément inséré**.    
+
+• Remarque:  HashMap, TreeMap, et LinkedHashMap sont des classes de collection non synchronisées, ce qui signifie qu'elles ne convient pas aux opérations thread-safe jusqu'à ce qu'elles soient explicitement synchronisées.   
    
 ### Interface Set:
 L'interface java.util.set est un sous type de l'interface java.util.Collections . Il représente un ensemble d'objets dans lequel on ne peut pas trouver de doublons. L'interface set contient seulement les méthodes héritées de Collections.     
 La plateforme Java comporte 3 implémentations de Set:  
-* HashSet
-* TreeSet
-* LinkedHashSet
+• HashSet
+• TreeSet
+• LinkedHashSet
 
 # Comprendre une ArrayList: (Understanding an ArrayList)  
 Un tableau a un inconvénient flagrant: vous devez savoir combien d'éléments seront dans le tableau lorsque vous le créez, puis vous êtes coincé avec ce choix.   
