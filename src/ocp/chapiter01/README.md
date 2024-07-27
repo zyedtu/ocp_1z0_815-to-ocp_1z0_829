@@ -41,9 +41,9 @@ Si vous avez une classe publique, elle doit correspondre au nom de fichier. La d
 				}    
 			}  
     
-Le mot clé 'public'est ce qu'on appelle un modificateur d'accés. Il déclare le niveau d'exposition de cette méthode aux acteurs potentiels du programme.   
+Le mot clé **public** est ce qu'on appelle un modificateur d'accés. Il déclare le niveau d'exposition de cette méthode aux acteurs potentiels du programme.   
 			 
-le mot clé 'static' lie une méthode à sa classe afin qu'elle puisse etre appelée uniquement par le nom de la classe, comme dans, par exemple, Zoo.main (). 
+le mot clé **static** lie une méthode à sa classe afin qu'elle puisse etre appelée uniquement par le nom de la classe, comme dans, par exemple, Zoo.main (). 
     
 La méthode main() permet à la JVM d'appeler notre code.
 
@@ -59,11 +59,13 @@ La méthode main(), recoit une liste de param, representée sous forme d'un tabl
 
 javac Zoo.java    
 java Zoo "San Diego" Zoo   
-=> Cela affiche :   
- "San Diego"    
- Zoo    
+=> Cela affiche :  
+
+		San Diego		      
+ 		Zoo    
+args[0] = San Diego, et args[1] = Zoo
 ### Lancer un programme sur une seule ligne:  
-A partir de java 11, vous pouvez exécuter un programme sans compiler, c-a-d sans taper la commande javac.  
+A partir de **java 11**, vous pouvez exécuter un programme sans compiler, c-a-d sans taper la commande javac.  
  
 	public class Zoo {    
 		public static void main(String[] args) {    
@@ -73,7 +75,40 @@ A partir de java 11, vous pouvez exécuter un programme sans compiler, c-a-d san
 On peut exécuter note programme Zoo sans le compilé.  
 java Zoo.java Cleveland    
 
-cette fonctionnalité (one-liner), exécute le programmes de code source à un seul fichier.  
+cette fonctionnalité (one-liner), exécute le programmes de code source à un seul fichier.   
+### Java 21 (JEP 445) Unnamed Classes and Instance Main Methods (classes sans nom et méthodes Main d'instance):
+##### Instance Main Methods: 
+L'ajout de méthodes d'instance Main et de classes sans nom au langage Java permet aux étudiants d'écrire des déclarations simplifiées pour des programmes à classe unique.   
+On a l'habitude d'écrire dans les versions antérieures de Java la méthode main de cette façon:  
+
+	class HelloWorld {
+		public satic void main() {
+			System.out.println("Hello, World!");
+		}
+	}
+Mais avec l'arrivé des méthodes d'instance main avec le version 21 de java, en améliorent le protocole de lancement Java et offrent une plus grande flexibilité dans la déclaration du point d'entrée d'un programme comme suit :   
+
+	class HelloWorld {
+		void main() {
+			System.out.println("Hello, World!");
+		}
+	}
+Il s'agit d'un changement de comportement lors du lancement d'une classe.  
+##### Unnamed Classes:  
+Dans le langage Java, chaque classe réside dans un package et chaque package réside dans un module. Ces constructions d'espaces de noms et d'encapsulation s'appliquent à tout le code ; cependant, **les petits programmes** qui n'en ont pas besoin peuvent **les omettre**.   
+Une classe sans nom est presque exactement comme une classe explicitement déclarée. Ses membres peuvent avoir les mêmes modificateurs (tels que **private** et **static**) et les modificateurs ont les mêmes valeurs par défaut (telles que packagel'accès et l'appartenance à l'instance). La classe peut avoir des initialiseurs statiques ainsi que des initialiseurs d'instance. Une différence clé est que, bien qu'une classe sans nom ait un constructeur par défaut à zéro paramètre, **elle ne peut avoir aucun autre constructeur**.   
+Avec ces changements, nous pouvons désormais écrire notre programme Hello, World! :   
+
+	void main() {
+		System.out.println("Hello, World!");
+	}
+Étant donné que les membres de niveau supérieur sont interprétés comme des membres de la classe sans nom , nous pouvons également écrire le programme comme suit:   
+
+	String greeting() { return "Hello, World!"; }
+	
+	void main() {
+		System.out.println(greeting());
+	}
 
 # Comprendre la declaration des package et les imports:
 Java a besoin d'un moyen d'organiser les classes.Il gère cela d'une manière similaire à un classeur. Vous mettez tous vos morceaux de papier dans un dossier. Java met des classes dans des packages. Ce sont des regroupements logiques pour les classes.
