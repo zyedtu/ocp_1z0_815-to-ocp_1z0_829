@@ -66,7 +66,8 @@ Les littéraux peuvent être affectés à n'importe quelle variable de type prim
 	byte a = 68; // 68 est un literal
 	char a = 'A'
 	float f = 15.14f; // c'est literal
-![Alt text](https://github.com/zyedtu/ocp_1z0_815-To-1Z0_829/blob/master/src/ocp/chapiter02/data_type.jpg?raw=true "Title")  
+
+![diagram](data_type.jpg)
 
 	long max = 3123456789; // Don't compile
 	long max = 3123456789l; //compile c'est un literal 
