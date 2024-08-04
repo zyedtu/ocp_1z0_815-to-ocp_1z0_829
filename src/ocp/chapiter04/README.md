@@ -124,7 +124,8 @@ L'instruction switch ne compile pas car il  manquante les accolade **{}**
 	switch (month) { 
 			case 1: 2: System.out.println("January");// DOES NOT COMPILE
 	}
-L'instruction switch ne compile pas car le mot clé case est manquant avant le 2, comme le code suivant *case 1: case 2: System.out.println("January");// COMPILE*        
+L'instruction switch ne compile pas car le mot clé case est manquant avant le 2, comme le code suivant:   
+	*case 1: case 2: System.out.println("January");// COMPILE*           
 
 	switch (month) { 
 			case 1 || 2: System.out.println("January");// DOES NOT COMPILE
@@ -141,13 +142,13 @@ Dans Java 7, les instructions switch ont été davantage mises à jour pour perm
 Dans Java 10, si le type auquel une variable est résolue est l'un des types pris en charge par une instruction switch, alors var peut également être utilisé dans une instruction switch.    
 Mais attendez, il y a plus. Java 12 a été lancé avec une version préliminaire d'une nouvelle fonctionnalité puissante appelée Switch Expressions, une construction qui combine des instructions switch avec des expressions lambda et permet aux instructions switch de renvoyer une valeur. Vous n'aurez pas besoin de connaître Switch Expressions pour l'examen, mais c'est juste un signe que les rédacteurs de Java sont loin d'avoir fini d'apporter des améliorations aux instructions switch.     
 
-Voici une liste de tous les types de données pris en charge par l'instruction switch:
-• int et Integer   
-• byte et Byte   
-• short et Short  
-• char et Character   
+Voici une liste de tous les types de données pris en charge par l'instruction switch:    
+• int et Integer     
+• byte et Byte    
+• short et Short   
+• char et Character    
 • String   
-• enum   
+• enum     
 • var (Si le type se résout en l'un des types précédents)   
 
 ###### Flux de contrôle de Switch: (Switch Control Flow)     
