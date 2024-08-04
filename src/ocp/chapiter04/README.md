@@ -136,7 +136,7 @@ Enfin, la dernière instruction switch ne compile pas car **1 || 2** utilise les
 		case 1 | 2: System.out.println("January");// COMPILE Operator BITWISE, not OR Logique
 	}
 ###### Changer de type de données:(Switch Data Types)
-Avant Java 5.0, la variable de l'instruction switch ne pouvait être que int ou les valeurs pouvant être promues en int, (byte, short, char). la variable de l'instruction switch accepte les wrapper classes (Integer, Byte,..).  
+Avant Java 5.0, la variable de l'instruction switch ne pouvait être que **int ou les valeurs pouvant être promues en int telsque (byte, short, char)**. la variable de l'instruction switch accepte les wrapper classes (Integer, Byte,..).  
 Lorsque l'énumération, notée enum, était ajoutée dans Java 5.0, le support était ajouté à switch.  
 Dans Java 7, les instructions switch ont été davantage mises à jour pour permettre la correspondance sur les valeurs String.  
 Dans Java 10, si le type auquel une variable est résolue est l'un des types pris en charge par une instruction switch, alors var peut également être utilisé dans une instruction switch.    
