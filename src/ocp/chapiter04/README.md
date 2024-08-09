@@ -299,7 +299,36 @@ Comme une instruction switch traditionnelle, une expression switch prend en char
 			System.out.print(result);
 		}
 Comparez ce code avec l'instruction switch que nous avons écrite précédemment. Les deux accomplissent la même tâche, mais une grande partie du code passe-partout a été supprimée, laissant le comportement qui nous intéresse le plus.    
-Notez qu'un point-virgule est requis après chaque expression Switch. Par exemple, le code suivant ne compile pas. Combien de points-virgules manque-t-il ?    
+Notez qu'un **point-virgule est requis après chaque expression Switch**. Par exemple, le code suivant ne compile pas. Combien de points-virgules manque-t-il ?    
+### Exhaustiveness (dans le cas switch Expression return un resultat):
+Contrairement aux instructions switch, les cas des expressions switch qui retourne un résultat **doivent être exhaustifs** (courvre tout les cas possible), ce qui signifie que pour toutes les valeurs possibles, il doit y avoir une étiquette switch correspondante. Ainsi, les expressions switch nécessitent normalement une clause default. Cependant, pour **les expressions switch enum** qui couvrent toutes les constantes connues, **le compilateur insère une clause default implicite**.    
+
+	enum Day {
+		MONDAY, FRIDAY, SUNDAY, TUESDAY, THURSDAY, SATURDAY,WEDNESDAY
+	}
+
+	public static boolean isWeekEnd(Day dayEnum) { // COMPILE
+        return switch (dayEnum) {
+            case MONDAY, FRIDAY, SUNDAY, TUESDAY, THURSDAY -> false;
+            case SATURDAY,WEDNESDAY -> true;
+        };
+    }
+Ce code compile, parce que toutes les constantes sont couverts.    
+
+	public static boolean isWeekEnd(Day dayEnum) { // NO COMPILE
+        return switch (dayEnum) {
+			case SATURDAY,WEDNESDAY -> true;
+		};
+	}
+Ce code ne compile pas parce qu'il courvre pas les cas MONDAY, FRIDAY, SUNDAY, TUESDAY, THURSDAY.   
+On a comme message d'erreure : *'switch' expression does not cover all possible input values*, pour résoudre le problème de comilation on a deux solutions, soit ajouter le défault ou courvrire tout les cas possible.    
+
+	public static void isWeekEnd(Day dayEnum) { // COMPILE
+		switch (dayEnum) {
+			case SATURDAY,WEDNESDAY -> System.out.println(true);
+		};
+	}
+Par contre ce code compile pourtant il ne couvre pas tout les cas, parce que l'instruction switch ne renvoie pas une valeur.     
 
 	var result = switch(bear) {
 		case 30 -> "Grizzly"
@@ -311,7 +340,7 @@ La réponse est trois. Chaque cas ou expression par défaut nécessite un point-
 		case 30 -> "Grizzly";
 		default -> "Panda";
 	};  
-Comme le montre la figure 3.4, les instructions case peuvent prendre plusieurs valeurs, séparées par des virgules. Réécrivons notre méthode printSeason() avec une expression switch :   
+Comme le montre la figure 3.4, les instructions case peuvent prendre plusieurs valeurs, **séparées par des virgules**. Réécrivons notre méthode printSeason() avec une expression switch :   
 
 	public void printSeason(int month) {
 		switch (month) {
@@ -325,7 +354,7 @@ Appeler printSeason(2) affiche la valeur unique Winter. Cette fois, nous n'avons
 
 Toutes les règles précédentes concernant les types de données de commutation et les valeurs de cas s'appliquent toujours, bien que nous ayons quelques nouvelles règles. Ne vous inquiètez pas si ces règles sont nouvelles pour vous ou si vous n'avez jamais vu le mot-clé rendement auparavant; nous en discuterons dans les sections suivantes.      
 
-1. Toutes les branches d'une expression Switch qui ne lèvent pas d'exception doivent renvoyer un type de données cohérent (si l'expression Switch renvoie une valeur).    
+1. Toutes les branches d'une expression Switch qui **ne lèvent pas d'exception** doivent renvoyer un **type de données cohérent** (si l'expression Switch **renvoie une valeur**).    
 2. Si l'expression switch renvoie une valeur, alors chaque branche qui n'est pas une expression doit produire une valeur.  
 3. Une branche par défaut est requise à moins que tous les cas soient couverts ou qu'aucune valeur ne soit renvoyée. Nous couvrons briévement la dernière règle, mais notez que notre exemple printSeason() ne contient pas de branche par défaut. étant donnée que l'expression switch ne renvoie pas de valeur et ne l'affecte pas à une variable, elle est entièrement facultative.  
 
@@ -343,7 +372,7 @@ La première régle d'utilisation d'une expression switch est probablement la pl
 	};
 Notez que la deuxiéme expression de cas renvoie un short, mais qui peut être implicitement transtype en un int. De cette manière, les valeurs doivent être cohérentes avec la taille, mais elles ne doivent pas toutes être du même type de données. Les trois dernières expressions de cas ne compilent pas car chacune renvoie un type qui ne peut pas être affecté à la variable int.   
 ##### Applying a case Block (Application d'un bloc de cas)   
-Une expression Switch prend en charge à la fois une expression et un bloc dans les branches case et default. Comme un bloc normal, un bloc case est un bloc entour d'accolades ({}). Il inclut également une instruction **yield** si l'expression switch renvoie une valeur. Par exemple, ce qui suit utilise un mélange d'expressions de casse et de blocs:
+Une expression Switch prend en charge à la fois une expression et un bloc dans les branches case et default. Comme un bloc normal, un bloc case est un bloc entour d'accolades (**{ }**). Il inclut également une instruction **yield** si l'expression switch renvoie une valeur. Par exemple, ce qui suit utilise un mélange d'expressions de casse et de blocs:
 
 	int fish = 5;
 	int length = 12;
@@ -361,7 +390,7 @@ Une expression Switch prend en charge à la fois une expression et un bloc dans 
 		default -> "Swordfish";
 	};
 	System.out.println(name);	// Swordfish
-Le mot clé **yield** équivaut à une instruction return dans une expression switch et est utilisée pour éviter toute ambiguaité quant à savoir si vous vouliez quitter le bloc ou la méthode autour de l'expression switch.   
+Le mot clé **yield** équivaut à une instruction **return dans une expression switch** et est utilisée pour éviter toute ambiguaité quant à savoir si vous vouliez quitter le bloc ou la méthode autour de l'expression switch.   
 
 En référence à notre deuxiéme régle pour les expressions switch, les instructions yield ne sont pas facultatives si l'instruction switch renvoie une valeur. Pouvez-vous voir pourquoi les lignes suivantes ne compilent pas ?    
 
@@ -408,6 +437,61 @@ Pour les énumérations, la deuxième solution fonctionne bien lorsque le nombre
 		};
 	}
 Etant donnée que toutes les permutations possibles de Season sont couvertes, une branche par défaut n'est pas requise dans cette expression de commutateur. Vous pouvez cependant inclure une branche par défaut facultative, même si vous couvrez toutes les valeurs connues.   
+# Pattern matching for switch expressions and statements - JEP 441 - JAVA 21: 
+Le Pattern matching for switch (Correspondance de modèle pour le switch) a été présentée pour la première fois dans Java 17, ensuite améliorés dans Java 18, 19 et 20. La fonctionnalité est désormais finalisée et sera incluse dans le JDK 21.    
+L'objectif de cette feature (fonctionnalité) est:    
+• Etendre l'expressivité de switch expressions et statements en parmettant au patterns (modèles) d’apparaître dans les étiquettes de case.    
+• Augmentez la sécurité des instructions switch en exigeant que le modèle des instructions switch couvrent toutes les valeurs d'entrée possibles.  
+• Permettre à null-hostility de switch d'être relacher lorsque cela est souhaité.     
+• Assurez-vous que toutes les switch expressions et switch instructions existantes, continuent d’être compilées sans modifications et s’exécutent avec une sémantique identique.   
+
+##### Etendre l'expressivité de switch:
+Cette motivation nous permet de contourner le problème que switch ne peut commuter que sur des valeurs de type byte, short, char, int, String et enum. Prenant cet exemple:  
+
+Supposant on une interface Animal qui sere implémentée par 3 classes:  
+
+	interface Animal { }
+	
+	class Dog implements Animal {
+		public String bark() { return "bark..!"; }
+	}
+	
+	class Cat implements Animal {
+		public String meow() { return "meow..!"; }
+	}
+	
+	class Bird implements Animal {
+		public String chirp() { return "chirp..!"; }
+	}
+Et chaque classe implémente une méthode pour renvoyer le type de son de l'animal.   
+Dans le classe main on appelle une méthode qui peut faire la distinction entre les animaux et affiche le son.  
+Avant Java 21 la méthode sera implémenter de cette façon:  
+
+	public static String getAnimalSound(Animal animal) {
+        if(animal instanceof Dog dog) {
+            return dog.bark();
+        }else if(animal instanceof Cat cat) {
+            return cat.meow();
+        }else if (animal instanceof Bird bird) {
+            return bird.chirp();
+        }
+        return "";
+    }
+En regardant ça on dit que c'est un un excellent cas d'utilisation pour les instructions switch car il existe plusieurs instructions if-else qui doivent être simplifiées. Mais vu les limites des types gérer par switch on ne peut pas l'utilise.   
+Heureusement avec Java 21 ce problème est résolu avec Pattern matching:  
+
+	public static String getAnimalSoundJava21(Animal animal) {
+		return switch (animal) {
+			case Dog dog-> dog.bark();
+			case Cat cat -> cat.meow();
+			case Bird bird -> bird.chirp();
+			case null -> "A null animal";
+			default -> throw new RuntimeException("There is a problem !");
+		};
+	}
+##### Exhaustivité des switch expressions: TODO
+##### null-hostility de switch:  TODO
+
 
 # Écriture de boucles While: (Writing While Loops) 
 Une pratique courante lors de l'écriture de logiciels est la nécessité de faire la même tâche un certain 
