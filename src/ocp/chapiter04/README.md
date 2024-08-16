@@ -510,7 +510,7 @@ Consider this (still erroneous) example :
 		};
 	}
 Donc ce pattern switch expression n'est pas non plus exhaustive et provoque une erreur de compilation.   
-La couverture de types d'une étiquette par défaut est de tous types, donc cet exemple est (enfin !) léga : 
+La couverture de types d'une étiquette par défaut est de tous types, donc cet exemple est (enfin !) légal : 
 
 	// As of Java 21
 	static int coverage(Object obj) {
