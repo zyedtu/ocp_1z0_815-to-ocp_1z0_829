@@ -918,7 +918,103 @@ Il existe également des méthodes spécifiques pour traiter les paires clé et 
 		for(Entry<String, Double> entry: entrySet)
 			System.out.print(entry.getKey() + " - " + entry.getValue());	// koala - bamboo
 Remarque:  
-Lorsqu'on va parcourir une Map il vaut mieux utiliser le *map.keySet()* que *map.entrySet()*, c'est plus sipmle !  
+Lorsqu'on va parcourir une Map il vaut mieux utiliser le *map.keySet()* que *map.entrySet()*, c'est plus sipmle !
+# Sequenced collections (Jep 431 Java21):
+### Motivation: 
+Le framework Collections propose de nombreuses interfaces et classes pour représenter et manipuler des Collections tellesques List, Set,.. mais ne dispose pas d'un type de collection qui représente une séquence d'éléments qui ont un ordre de parcours.  
+Un autre problème est qu’il n’existe pas de méthode uniforme pour accéder au premier et au dernier élément d’une collection, ou pour parcourir ses éléments dans l’ordre inverse.    
+
+Une collection séquencée est une collection dont les éléments ont un ordre de parcours défini, Chaque élément de cette collection a une position bien définie – premier, deuxième, et ainsi de suite, jusqu'au dernier élément. Les principales caractéristiques comprennent :
+• Méthodes pour ajouter, obtenir et supprimer des éléments aux deux extrémités de la collection.
+• Une méthode reversed() pour fournir une vue ordonnée inverse de la collection.   
+
+L'interface SequencedCollection et modélisée comme ci-dessous : 
+
+	interface SequencedCollection<E> extends Collection<E> {
+		// new method
+		SequencedCollection<E> reversed();
+		// methods promoted from Deque
+		void addFirst(E);
+		void addLast(E);
+		E getFirst();
+		E getLast();
+		E removeFirst();
+		E removeLast();
+	}
+Exemple de code:  
+
+	public class MainSequencedCollection {
+		public static void main(String[] args) {
+			List<Integer> nombres = new ArrayList<>();
+			nombres.add(2);
+			nombres.addFirst(1);
+			nombres.addLast(3);
+			System.out.println(nombres); // [1, 2, 3]
+			System.out.println(nombres.getFirst()); // 1
+			System.out.println(nombres.getLast()); // 3
+			System.out.println(nombres.reversed()); // [3, 2, 1]
+			nombres.removeLast();
+			nombres.removeFirst();
+			System.out.println(nombres); // [2]
+		}
+	}
+### Sequenced sets :
+Un ensemble séquencé est un Set qui est un SequencedCollection qui ne contient aucun élément en double.  
+
+	interface SequencedSet<E> extends Set<E>, SequencedCollection<E> {
+		SequencedSet<E> reversed();    // covariant override
+	}
+Exemple :
+
+	@Test
+	@DisplayName("Sequenced Set test")
+	public void sequencedSet_test() {
+		SequencedSet<String> sequencedSet = new LinkedHashSet<>();
+		sequencedSet.add("Banana");
+		sequencedSet.addFirst("Apple");
+		sequencedSet.addLast("Cherry");
+		System.out.println(sequencedSet); // [Apple, Banana, Cherry]
+		sequencedSet.removeFirst();
+		System.out.println(sequencedSet.reversed()); //[Cherry, Banana]
+		System.out.println(sequencedSet.getLast()); // Cherry
+	}
+### Sequenced maps: 
+Une Map séquencée est une Map dont les entrées ont un ordre de parcouts défini.   
+
+	interface SequencedMap<K,V> extends Map<K,V> {
+		// new methods
+		SequencedMap<K,V> reversed();
+		SequencedSet<K> sequencedKeySet();
+		SequencedCollection<V> sequencedValues();
+		SequencedSet<Entry<K,V>> sequencedEntrySet();
+		V putFirst(K, V);
+		V putLast(K, V);
+		// methods promoted from NavigableMap
+		Entry<K, V> firstEntry();
+		Entry<K, V> lastEntry();
+		Entry<K, V> pollFirstEntry();
+		Entry<K, V> pollLastEntry();
+	}
+Exemple :
+
+	@Test
+	@DisplayName("Sequence Maps test")
+	public void sequencedMap_test() {
+		// Given - precondition or setup
+		SequencedMap<String, Integer> sequencedMap = new LinkedHashMap<>();
+		// When - action or the behaviour
+		sequencedMap.putFirst("Apple", 10);
+		sequencedMap.put("Banana", 20);
+		sequencedMap.putLast("Cherry", 30);
+		// Then - verify the output
+		assertEquals("Apple", sequencedMap.firstEntry().getKey());
+		assertEquals(30, sequencedMap.lastEntry().getValue());
+	}
+### Retrofitting (Rénovation):
+Les trois nouvelles interfaces définies ci-dessus s'intègrent parfaitement dans la hiérarchie des types de collections existantes :  
+
+![diagram](SequencedCollectionDiagram.png)
+
 # Redéfinir toString, equals(Object) et hashCode():     
 Toutes les classes de Java héritent de java.lang.Object, directement ou indirectement, ce qui signifie que toutes les classes héritent de toutes les méthodes définies dans Object. Trois de ces méthodes sont courantes pour les sous-classes à redéfinir par une implémentation personnalisée. Tout d'abord, nous allons examiner toString(). Ensuite, nous parlerons de equals() et hashCode(). Enfin, nous discuterons de la relation entre equals() et hashCode().     
 ### toString():   

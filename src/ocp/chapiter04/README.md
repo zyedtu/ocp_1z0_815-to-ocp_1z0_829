@@ -489,10 +489,62 @@ Heureusement avec Java 21 ce problème est résolu avec Pattern matching:
 			default -> throw new RuntimeException("There is a problem !");
 		};
 	}
-##### Exhaustivité des switch expressions: TODO
-##### null-hostility de switch:  TODO
+##### Exhaustivité des switch expressions: 
+Une expression switch nécessite que toutes les valeurs possibles de l’expression du sélecteur soient gérées dans le bloc switch ; en d'autres termes, il doit être exhaustif. Cela maintient la propriété selon laquelle une évaluation réussie d’une expression switch produit toujours une valeur.  
+Considérez cet exempledu modèle expression de switch (erroné) :  
 
+	// As of Java 21
+	static int coverage(Object obj) {
+		return switch (obj) {           // Error - not exhaustive
+			case String s -> s.length();
+		};
+	}
+Ce pattern switch expression n'est pas exhaustive car la couverture de type de selector dans le bloc switch n'inclut pas tout les sous-type.  
+Consider this (still erroneous) example :   
 
+	// As of Java 21
+	static int coverage(Object obj) {
+		return switch (obj) {           // Error - still not exhaustive
+			case String s  -> s.length();
+			case Integer i -> i;
+		};
+	}
+Donc ce pattern switch expression n'est pas non plus exhaustive et provoque une erreur de compilation.   
+La couverture de types d'une étiquette par défaut est de tous types, donc cet exemple est (enfin !) léga : 
+
+	// As of Java 21
+	static int coverage(Object obj) {
+		return switch (obj) {
+			case String s  -> s.length();
+			case Integer i -> i;
+			default -> 0;
+		};
+	}
+##### null-hostility de switch: 
+Avec les instructions switch et les expressions switch traditionnelles, renvoient un NullPointerException si l'expression du sélecteur est évaluée à null, donc le test de null doit être effectué en dehors du switch.   
+
+	// Prior to Java 21
+	static void testFooBarOld(String s) {
+		if (s == null) {
+			System.out.println("Oops!");
+			return;
+		}
+
+		switch (s) {
+			case "Foo", "Bar" -> System.out.println("Great");
+			default           -> System.out.println("Ok");
+		}
+	}
+Donc il serait résonable d'intégrer le test null dans le switch en autorisant une nouvelle étiquette de cas null, c'est pour cela Java 21 a ajouté cette fonctionnalité.   
+
+	// As of Java 21
+	static void testFooBarNew(String s) {
+		switch (s) {
+			case null         -> System.out.println("Oops");
+			case "Foo", "Bar" -> System.out.println("Great");
+			default           -> System.out.println("Ok");
+		}
+	}
 # Écriture de boucles While: (Writing While Loops) 
 Une pratique courante lors de l'écriture de logiciels est la nécessité de faire la même tâche un certain 
 nombre de fois. Vous pouvez utiliser les structures de décision que nous avons présentées jusqu'à présent 
