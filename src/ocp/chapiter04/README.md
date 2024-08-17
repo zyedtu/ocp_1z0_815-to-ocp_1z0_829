@@ -573,9 +573,8 @@ Les parentheses sont obligatoire et les curly braces obliqatoire si le block con
 ### La déclaration do/While: (The do/While Statement)
 La seconde forme qu'une boucle while peut prendre est appelée boucle do / while. Contrairement à une boucle while, through, une boucle do / while garantit que l'instruction ou le bloc sera exécuté au moins une fois  
 
-	do{
-		// BODY
-	}while(booleanExpression); // semicolon(virgule) obligatoire
+![diagram](do-while-statement.png)
+
 ### Comparaison des boucles while et do / while: (Comparing while and do/while loops)  
 
 		int llama = 10;
