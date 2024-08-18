@@ -971,9 +971,9 @@ Lorsqu'on va parcourir une Map il vaut mieux utiliser le *map.keySet()* que *map
 Le framework Collections propose de nombreuses interfaces et classes pour représenter et manipuler des Collections tellesques List, Set,.. mais ne dispose pas d'un type de collection qui représente une séquence d'éléments qui ont un ordre de parcours.  
 Un autre problème est qu’il n’existe pas de méthode uniforme pour accéder au premier et au dernier élément d’une collection, ou pour parcourir ses éléments dans l’ordre inverse.    
 
-Une collection séquencée est une collection dont les éléments ont un ordre de parcours défini, Chaque élément de cette collection a une position bien définie – premier, deuxième, et ainsi de suite, jusqu'au dernier élément. Les principales caractéristiques comprennent :
-• Méthodes pour ajouter, obtenir et supprimer des éléments aux deux extrémités de la collection.
-• Une méthode reversed() pour fournir une vue ordonnée inverse de la collection.   
+Une collection séquencée est une collection dont les éléments ont un ordre de parcours défini, Chaque élément de cette collection a une position bien définie – premier, deuxième, et ainsi de suite, jusqu'au dernier élément. Les principales caractéristiques comprennent :      
+• Méthodes pour ajouter, obtenir et supprimer des éléments aux deux extrémités de la collection.    
+• Une méthode reversed() pour fournir une vue ordonnée inverse de la collection.        
 
 L'interface SequencedCollection et modélisée comme ci-dessous : 
 
