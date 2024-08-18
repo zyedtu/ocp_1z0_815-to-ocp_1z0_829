@@ -597,7 +597,8 @@ Une collection est un groupe d'objets contenus dans un seul objet. Le Java Colle
 l'interface Collection et ses sous-interfaces principales. Notez que Map n'implémente pas l'interface Collection. Il est considéré comme faisant partie du Java Collections Framework, même s'il ne s'agit pas techniquement d'une collection. C'est une collection (notez les minuscules), cependant, en ce qu'elle contient un groupe d'objets. La raison pour laquelle les cartes sont traitées différemment est qu'elles nécessitent des méthodes différentes en raison du fait qu'elles sont des paires clé/valeur.  
 Nous allons d'abord discuter des méthodes que Collection fournit à toutes les classes d'implémentation. Ensuite, nous couvrirons les différents types de collections, y compris quand utiliser chacune et les sous-classes concrètes. Ensuite, nous comparerons les différents types.   
 
-L'interface Collection a des méthodes on site les principales, y'on d'autres :
+L'interface Collection a des méthodes on site les principales, y'on d'autres :          
+
 • public int size()                                   
 • public boolean isEmpty()                            
 • public boolean contains(Object element)             
