@@ -221,7 +221,7 @@ Syntactiquement, une expression de modèle (template expression) ressemble à un
 	String name = "Joan";
 	String info = STR."My name is \{name}";
 	System.out.println(info );  // true
-Le template expression STR."My name is \{name}" consiste en :   
+Le template expression STR."My name is \\{name}" consiste en :   
 • Un template processor (STR)    
 • Un point character (U+002E)     
 • Un template ("My name is \\{name}") qui contient une expression intégrée (\{name})        
