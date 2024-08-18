@@ -224,7 +224,7 @@ Syntactiquement, une expression de modèle (template expression) ressemble à un
 Le template expression STR."My name is \\{name}" consiste en :   
 • Un template processor (STR)    
 • Un point character (U+002E)     
-• Un template ("My name is \\{name}") qui contient une expression intégrée (\{name})        
+• Un template ("My name is \\{name}") qui contient une expression intégrée (\\{name})        
 
 STR est un processeur de modèle défini dans la plate-forme Java. Il effectue une interpolation de String en remplaçant chaque expression intégrée dans le modèle par la valeur (stringifiée) de cette expression.    
 Voici un exemple template expression désignant du texte JSON, le tout réparti sur plusieurs lignes :  
