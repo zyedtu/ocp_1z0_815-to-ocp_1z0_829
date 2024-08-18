@@ -80,7 +80,7 @@ Contrairement à charAt(), la méthode indexOf() ne lève pas une exception si l
 La méthode substring recherche également des caractères dans une chaîne. Il renvoie des parties de la chaîne. Le premier paramètre est l'index avec lequel commencer pour la chaîne retournée. Il existe un deuxième paramètre facultatif, qui est l'index de fin auquel vous souhaitez vous arrêter. Les signatures de la méthode sont les suivantes:      
 	*String substring(int beginIndex)*     
 	*String substring(int beginIndex, int endIndex)*    
-Il est utile de penser les index un peu différemment pour les méthodes de substring(). Faire semblant que les index sont juste avant le caractère vers lequel ils pointeraient.  
+Il est utile de penser les index un peu différemment pour les méthodes de substring(). Faire semblant que **les index sont juste avant le caractère vers lequel ils pointeraient**.  
 Le code suivant montre comment utiliser substring():  
 
 		String s = "animals";
@@ -139,7 +139,7 @@ Le code suivant montre comment utiliser replace():
 		System.out.println("abc".contains("B"));	// false
 ###### trim(),strip(), stripLeading(), and stripTrailing():  
 Vous avez vu presque toutes les méthodes String que vous devez connaître. La prochaine étape consiste à supprimer l'espace vide du début et/ou de la fin d'une chaîne. Les méthodes strip() et trim() suppriment les espaces du début et de la fin d'un String.  
-Dans les termes de l'examen, les espaces se composent d'espaces avec \t (tab) et \n (newLine)  
+Dans les termes de l'examen, les espaces se composent d'espaces ainsi que des caractères \t (tab) et \n (newLine).       
 La méthode strip() est nouvelle dans **Java 11**. Elle fait tout ce que trim() fait, mais elle prend en charge Unicode.  
 De plus, les méthodes stripLeading() et stripTrailing() ont été ajoutées dans Java11. La méthode stripLeading() supprime les espaces au début de la chaîne et les laisse à la fin. La méthode stripTrailing() fait le contraire. Les signatures de la méthode sont les suivantes:  
 	*String strip()*    
@@ -209,7 +209,45 @@ Les blocs de texte nécessitent **un saut de ligne** après l'ouverture """, ce 
 	String block = """
 				doe \
 				deer""";
-Juste un. La sortie est *doe deer* car le \ indique à Java de ne pas ajouter de nouvelle ligne avant deer. 
+Juste un. La sortie est *doe deer* car le \ indique à Java de ne pas ajouter de la nouvelle ligne avant deer.    
+### String Templates (Modèle String) - Java 21 (JEP 465):  
+Le modèle String compète le string litéral et le bloc text de String, en associant le texte littéral à des expressions intégrées et à des processeurs de modèles pour produire des résultats spécialisés. La motiviation de cette fonctionnalité est :
+• Simplifiez l'écriture de programmes Java en facilitant l'expression de chaînes contenant des valeurs calculées au moment de l'exécution.   
+• Améliorer la lisibilité des expressions qui mélangent texte et expressions.  
+• Simplifiez l’utilisation des API qui acceptent les chaînes écrites dans des langages non Java (par exemple, SQL, XML et JSON).   
+
+Syntactiquement, une expression de modèle (template expression) ressemble à un littéral de chaîne avec un préfixe. Regardons cet exemple ci-dessous : 
+
+	String name = "Joan";
+	String info = STR."My name is \{name}";
+	System.out.println(info );  // true
+Le template expression STR."My name is \{name}" consiste en :
+• Un template processor (STR)
+• Un point character (U+002E)
+• Un template ("My name is \{name}") qui contient une expression intégrée (\{name})   
+
+STR est un processeur de modèle défini dans la plate-forme Java. Il effectue une interpolation de String en remplaçant chaque expression intégrée dans le modèle par la valeur (stringifiée) de cette expression.    
+Voici un exemple template expression désignant du texte JSON, le tout réparti sur plusieurs lignes :  
+
+	String name = "Joan Smith";
+	String phone = "555-123-4567";
+	String address = "1 Maple Drive, Anytown";
+	String json = STR."""
+		{
+			"name":    "\{name}",
+			"phone":   "\{phone}",
+			"address": "\{address}"
+		}
+		""";
+	System.out.println(json);
+ce code nous affiche:   
+
+	{
+		"name":    "Joan Smith",
+		"phone":   "555-123-4567",
+		"address": "1 Maple Drive, Anytown"
+	}
+C'est genial !
 # Utilisation de la classe StringBuilder: (Using the StringBuilder Class)  
 La classe StringBuilder crée un String sans stocker toutes ces valeurs String provisoires. Contrairement à la classe String, StringBuilder n'est pas immuable
 ### Mutabilité et chaînage: (Mutability ans Chaining)
