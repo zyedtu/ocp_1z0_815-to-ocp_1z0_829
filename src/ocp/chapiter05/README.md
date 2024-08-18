@@ -211,20 +211,20 @@ Les blocs de texte nécessitent **un saut de ligne** après l'ouverture """, ce 
 				deer""";
 Juste un. La sortie est *doe deer* car le \ indique à Java de ne pas ajouter de la nouvelle ligne avant deer.    
 ### String Templates (Modèle String) - Java 21 (JEP 465):  
-Le modèle String compète le string litéral et le bloc text de String, en associant le texte littéral à des expressions intégrées et à des processeurs de modèles pour produire des résultats spécialisés. La motiviation de cette fonctionnalité est :
-• Simplifiez l'écriture de programmes Java en facilitant l'expression de chaînes contenant des valeurs calculées au moment de l'exécution.   
-• Améliorer la lisibilité des expressions qui mélangent texte et expressions.  
-• Simplifiez l’utilisation des API qui acceptent les chaînes écrites dans des langages non Java (par exemple, SQL, XML et JSON).   
+Le modèle String compète le string litéral et le bloc text de String, en associant le texte littéral à des expressions intégrées et à des processeurs de modèles pour produire des résultats spécialisés. La motiviation de cette fonctionnalité est :     
+• Simplifiez l'écriture de programmes Java en facilitant l'expression de chaînes contenant des valeurs calculées au moment de l'exécution.       
+• Améliorer la lisibilité des expressions qui mélangent texte et expressions.       
+• Simplifiez l’utilisation des API qui acceptent les chaînes écrites dans des langages non Java (par exemple, SQL, XML et JSON).         
 
 Syntactiquement, une expression de modèle (template expression) ressemble à un littéral de chaîne avec un préfixe. Regardons cet exemple ci-dessous : 
 
 	String name = "Joan";
 	String info = STR."My name is \{name}";
 	System.out.println(info );  // true
-Le template expression STR."My name is \{name}" consiste en :
-• Un template processor (STR)
-• Un point character (U+002E)
-• Un template ("My name is \{name}") qui contient une expression intégrée (\{name})   
+Le template expression STR."My name is \{name}" consiste en :   
+• Un template processor (STR)    
+• Un point character (U+002E)     
+• Un template ("My name is \{name}") qui contient une expression intégrée (\{name})        
 
 STR est un processeur de modèle défini dans la plate-forme Java. Il effectue une interpolation de String en remplaçant chaque expression intégrée dans le modèle par la valeur (stringifiée) de cette expression.    
 Voici un exemple template expression désignant du texte JSON, le tout réparti sur plusieurs lignes :  
