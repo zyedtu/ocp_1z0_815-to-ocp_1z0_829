@@ -964,8 +964,20 @@ Il existe également des méthodes spécifiques pour traiter les paires clé et 
 		Set<Entry<String, Double>> entrySet = map.entrySet();
 		for(Entry<String, Double> entry: entrySet)
 			System.out.print(entry.getKey() + " - " + entry.getValue());	// koala - bamboo
-Remarque:  
-Lorsqu'on va parcourir une Map il vaut mieux utiliser le *map.keySet()* que *map.entrySet()*, c'est plus sipmle !
+Remarque :      
+Lorsqu'on va parcourir une Map il vaut mieux utiliser le *map.keySet()* que *map.entrySet()*, c'est plus simple !     
+##### Logic for get and put Operations for Java Hash table (Hash Collision):
+En term très simple, l'implementations da tables de hachage Java utilisent la logique suivante pour les opération get et put.
+1. Identifier d'abort le "bucket" en utilisant **le hash code de la clé "Key" de HashMap**.
+2. S'il n'a pas d'objects dans le "bucket" avec le même hash code alors:   
+   . on ajoute l'objet pour la méthode **put**.  
+   . on retourne la valeur null avec la méthode **get**.
+3. Si on trouve un object dans le "bucket" avec le même hash code, alors **la méthode equals de la clé "Key" de HashMap** sera solicitée:    
+   . Si equals() retoune true, avec **put** on ecrasse l'ancien object et on met le nouveau, et avec **get** on retourne l'objet.   
+   . Si equals() retourn false, avec **put** on ajoute le nouveau objet dans une nouvelle entrée de buket, et avec **get** on retourne null.
+
+![diagram](hashTable.jpg)
+
 # Sequenced collections (Jep 431 Java21):
 ### Motivation: 
 Le framework Collections propose de nombreuses interfaces et classes pour représenter et manipuler des Collections tellesques List, Set,.. mais ne dispose pas d'un type de collection qui représente une séquence d'éléments qui ont un ordre de parcours.  
@@ -1067,7 +1079,7 @@ Toutes les classes de Java héritent de java.lang.Object, directement ou indirec
 ### toString():   
 La méthode toString() est appelée lorsque vous essayez **d'afficher un objet** ou de concaténer l'objet avec une chaîne (avec String). Il est généralement redéfinie par une version qui afficher une description unique de l'instance à l'aide de ses champs d'instance.    
 De toute évidence, fournir une belle sortie lisible par l'homme va rendre les choses plus faciles pour les développeurs qui travaillent avec votre code. Ils peuvent simplement imprimer votre objet et comprendre ce qu'il représente. Heureusement, il est facile de redéfinir toString() et de fournir votre propre implémentation.     
-Prenons cette classe:   
+Prenons cette classe :   
 
 		class Hippo {
 			private String name;
@@ -1190,17 +1202,6 @@ Prenons la classe Card ci-dessous, au premier lieu on va redéfinir juste la mé
 	}
 À ce stade, vous pouvez vous attendre à ce que new Card("4", "52") renvoie "Jenny", mais à la place, il renvoie null. Pourtant que les deux objets sont égaux.  
 L'échec de la classe Card est du au non redéfinition de la méthode hashCode, fait que les deux instances égales ont des codes de hachage inégaux, **en violation du contrat hashCode**.    
-##### Logic for get and put Operations for Java Hash table (Hash Collision):  
-En term très simple, l'implementations da tables de hachage Java utilisent la logique suivante pour les opération get et put.  
-1. Identifier d'abort le "bucket" en utilisant **le hash code de la clé "Key" de HashMap**.   
-2. S'il n'a pas d'objects dans le "bucket" avec le même hash code alors:   
-  . on ajoute l'objet pour la méthode **put**.  
-  . on retourne la valeur null avec la méthode **get**.    
-3. Si on trouve un object dans le "bucket" avec le même hash code, alors **la méthode equals de la clé "Key" de HashMap** sera solicitée:    
-	. Si equals() retoune true, avec **put** on ecrasse l'ancien object et on met le nouveau, et avec **get** on retourne l'objet.   
-	. Si equals() retourn false, avec **put** on ajoute le nouveau objet dans une nouvelle entrée de buket, et avec **get** on retourne null.     
-
-![diagram](hashTable.jpg)
 
 Résoudre ce problème est aussi simple que d'écrire une méthode de hachage appropriée pour la classe Card.      
 Pour écrire une méthode de hashCode, il y a des règle à suivre **Effective Java, by Joshua Bloch**:   
