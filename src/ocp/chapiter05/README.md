@@ -964,8 +964,8 @@ Il existe également des méthodes spécifiques pour traiter les paires clé et 
 		Set<Entry<String, Double>> entrySet = map.entrySet();
 		for(Entry<String, Double> entry: entrySet)
 			System.out.print(entry.getKey() + " - " + entry.getValue());	// koala - bamboo
-Remarque :      
-Lorsqu'on va parcourir une Map il vaut mieux utiliser le *map.keySet()* que *map.entrySet()*, c'est plus simple !     
+• Remarque :    
+Lorsqu'on va parcourir une Map, il vaut mieux utiliser le *map.keySet()* que *map.entrySet()*, c'est plus simple !     
 ##### Logic for get and put Operations for Java Hash table (Hash Collision):
 En term très simple, l'implementations da tables de hachage Java utilisent la logique suivante pour les opération get et put.
 1. Identifier d'abort le "bucket" en utilisant **le hash code de la clé "Key" de HashMap**.
