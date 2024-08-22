@@ -1230,7 +1230,7 @@ Maintenant on re-exécute le programme:
 	}
 Notre code afficher bel et bien **Jenny**.  
  
-# Comparateur vs comparable: (Comparator vs. Comparable)   
+# comparable vs Comparateur : (Comparable vs. Comparator)   
 On a vu précedement quand peut trier une liste avec des string en utilisant la sort de la classe Collections.  En fait on peut fair ça parce que la classe String implémente l'interface **Comparable**, mais si on essaye de comparer un objet crée par nous même on aura une erreure.      
 Mais on peut également trier les objets que nous créons. Java fournit une interface appelée Comparable . Si votre classe implémente Comparable , elle peut être utilisée dans ces structures de données qui nécessitent une comparaison. Il existe également une interface appelée **Comparator** , qui est utilisée pour spécifier que vous souhaitez utiliser un ordre différent de celui fourni par l'objet lui-même.     
 Comparable et Comparator sont suffisamment similaires pour être délicats. L'examen aime voir s'il peut vous amener à mélanger les deux. Ne soyez pas confus ! Dans cette section, nous discuterons d'abord de Comparable. Ensuite, en parcourant Comparator , nous soulignerons toutes les différences.     
