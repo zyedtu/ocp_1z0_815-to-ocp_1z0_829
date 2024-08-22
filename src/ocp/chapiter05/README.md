@@ -77,7 +77,7 @@ Le code suivant montre comment utiliser indexOf():
 		System.out.println(s.indexOf("al",5));	// -1
 Contrairement à charAt(), la méthode indexOf() ne lève pas une exception si le match n'est pas trouvé, mais elle renvoie la valeur **-1** comme dans le dernier exemple.  
 ###### substring():
-La méthode substring recherche également des caractères dans une chaîne. Il renvoie des parties de la chaîne. Le premier paramètre est l'index avec lequel commencer pour la chaîne retournée. Il existe un deuxième paramètre facultatif, qui est l'index de fin auquel vous souhaitez vous arrêter. Les signatures de la méthode sont les suivantes:      
+La méthode substring permet **d'extraire une sous-chaîne** de caractères à partir des positions spécifiées.. Le premier paramètre est l'index avec lequel commencer pour la chaîne retournée. Il existe un deuxième paramètre facultatif, qui est l'index de fin auquel vous souhaitez vous arrêter. Les signatures de la méthode sont les suivantes:      
 	*String substring(int beginIndex)*     
 	*String substring(int beginIndex, int endIndex)*    
 Il est utile de penser les index un peu différemment pour les méthodes de substring(). Faire semblant que **les index sont juste avant le caractère vers lequel ils pointeraient**.  
