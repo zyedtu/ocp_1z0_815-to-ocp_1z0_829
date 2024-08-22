@@ -491,19 +491,19 @@ Réessayez avec les types String:
 		for (String string : strings)
 			System.out.print(string + " ");	// 10 100 9
 Cette fois, le résultat n'est peut-être pas celui que vous attendez. Ce code produit 10 100 9. Le problème est que String trie par ordre alphabétique et 1 trie avant 9. (Les nombres sont triés avant les lettres et les majuscules avant les minuscules, au cas où vous vous poseriez la question.)
-### Recherche: (Recherche)  
-Java fournit également un moyen pratique de recherche, mais uniquement si *le tableau est déjà trié*, en utilisant **Arrays.binarySearch()**. Ci-dessous on trouve les règles de la recherche:  
+### Searching: (Recherche)  
+Java fournit également un moyen pratique de recherche, mais uniquement si **le tableau est déjà trié**, en utilisant **Arrays.binarySearch()**. Ci-dessous on trouve les règles de la recherche:  
 	- Si l'élément cible est trouvé dans un tableau trié alors on retourne l'index de l'élément.  
-	- Si l'élément cible n'est pas trouvé dans un tableau trié alors on retourne une valeur négative strictement infèrieur à l'index ou devrait l'être.  
+	- Si l'élément cible n'est pas trouvé dans un tableau trié alors on retourne une valeur négative strictement inférieur à l'index ou devrait l'être, alors la sortie sera égale à **la valeur (-(insertion point) - 1)**.    
 	- Si le tableau n'est pas trié alors on aura une valeur surpprise.  
-Essayons ces règles avec un exemple:  
+Essayons ces règles avec un exemple :  
 
 		int[] tabInt = {2,4,6,8};
 		System.out.println(Arrays.binarySearch(tabInt, 2)); // 0
 		System.out.println(Arrays.binarySearch(tabInt, 4)); // 1
-		System.out.println(Arrays.binarySearch(tabInt, 1)); // -1
-		System.out.println(Arrays.binarySearch(tabInt, 3)); // -2
-		System.out.println(Arrays.binarySearch(tabInt, 9)); // -5
+		System.out.println(Arrays.binarySearch(tabInt, 1)); // -1 (-(insertion point) - 1) = 0-1 = -1
+		System.out.println(Arrays.binarySearch(tabInt, 3)); // -2 (-(insertion point) - 1) = -1-1 = -2
+		System.out.println(Arrays.binarySearch(tabInt, 9)); // -5  (-(insertion point) - 1) = -4-1 = -5
 Que pensez-vous qu'il se passe dans cet exemple ?  
 
 		int [] tabNoSort = new int[] {3,2,1};
@@ -511,17 +511,17 @@ Que pensez-vous qu'il se passe dans cet exemple ?
 		System.out.println(Arrays.binarySearch(tabNoSort, 3));	// -4
 Dans l'exam dès que vous voyez que le tableau n’est pas trié, recherchez un choix de réponse concernant une sortie imprévisible.
 ### Comparant: (Comparing) 
-Java fournit également des méthodes pour comparer deux tableaux afin de déterminer lequel est "plus petit". Nous allons d'abord couvrir la méthode compare(), puis passer à mismatch() " l'incompatibilité".  
+Java fournit également des méthodes pour comparer deux tableaux afin de déterminer lequel est "plus petit". Nous allons d'abord couvrir la méthode compare(), puis passer à mismatch() " l'incompatibilité".
 ###### compare():  
 Il y a un tas de règles que vous devez connaître avant d'appeler compare(). Vous devez d'abord savoir ce que signifie la valeur de retour. vous n'avez pas besoin de connaître les valeurs de retour exactes, mais vous devez connaître les éléments suivants:  
 	- Un nombre négatif signifie que le premier tableau est plus petit que le second.
 	- Un zéro signifie que les tableaux sont égaux.
 	- Le nombre positif signifie que le premier tableau est plus grand que le second.  
-Voici un exemple: 
+Voici un exemple : 
 
 		System.out.println(Arrays.compare(new int[] {1}, new int[] {2}));	// -1
-retourne -1 parce que 1 est plus petit que 2, c'est normal.  
-Mais si on veut comparer deux tableaux avec une tailles differentes, qq ce passe ?  Ci-dessous des exemples qui illustrent les règles:  
+Retourne -1 parce que 1 est plus petit que 2, c'est normal.  
+Mais si on veut comparer deux tableaux avec une taille differente, qq ce passe ? Ci-dessous des exemples qui illustrent les règles :  
 
 	System.out.println(Arrays.compare(new int[] {1, 2}, new int[] {2}));	// -1
 	System.out.println(Arrays.compare(new int[] {1, 2}, new int[] {1, 2}));	// 0
@@ -534,8 +534,8 @@ Mais si on veut comparer deux tableaux avec une tailles differentes, qq ce passe
 Il est maintenant temps d'en apprendre davantage sur les mismatch(). si les tableaux sont égaux, mismatch() renvoie -1. Sinon, il renvoie le premier index où ils diffèrent. Pouvez-vous comprendre ce que ces imprimés?  
 
 	System.out.println(Arrays.mismatch(new int[] {1},  new int[] {1}));	// -1
-		System.out.println(Arrays.mismatch(new String[] {"a"}, new String[] {"A"}));	// 0
-		System.out.println(Arrays.mismatch(new int[] {1, 2},  new int[] {1}));	// 1
+	System.out.println(Arrays.mismatch(new String[] {"a"}, new String[] {"A"}));	// 0
+	System.out.println(Arrays.mismatch(new int[] {1, 2},  new int[] {1}));	// 1
 ### Varargs:  
 Lorsque vous créez un tableau vous-même, cela ressemble à ce que nous avons vu jusqu'à présent. Quand on est passé à votre méthode, il y a une autre façon dont cela peut ressembler. Voici trois exemples avec une méthode main():  
 
