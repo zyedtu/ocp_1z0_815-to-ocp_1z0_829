@@ -1358,7 +1358,7 @@ Notre méthode main rassemblait àa ça :
 		Collections.sort(squirrelList, new MultiFieldComparator());
 		System.out.println(squirrelList); // [Squirrel{weight=12, species='spece01'}, Squirrel{weight=13, species='spece01'}]
 	}
-Cela fonctionne, ce n'est cependant pas facile à lire. Il est également facile de se tromper.   
+Cela fonctionne en supposant qu'aucun nom d'espèce ne soit nul, ce n'est cependant pas facile à lire. Il est également facile de se tromper.   
 Alternativement, nous pouvons utiliser des références de méthode et construire le comparateur. Ce code représente la logique pour la même comparaison :   
 
 	Comparator<Squirrel> c = Comparator.comparing(Squirrel::getSpecies)
@@ -1371,7 +1371,7 @@ Supposons que nous voulions trier par ordre décroissant par espèce.
 L'interface fonctionnelle (Functional Interface) **Comparator** a introduit depuis Java 8 une méthode statique appelée **comparing** qui vous permet de spécifier **une fonction clé (clé de tri)** pour comparer des objets. Cette fonction est utilisée pour extraire une valeur d'un objet et la comparer à cette valeur lors du tri.
 # Travailler avec les dates et les heures: (Working with Dates and Times)   
 A pariter de Java 8, Oracle a complètement repensé la façon dont nous travaillons avec les dates et les heures. Vous pouvez toujours écrire du code «à l'ancienne», mais ces cours ne font pas partie de l'examen. Nous mentionnerons «l'ancienne méthode» dans les scénarios du monde réel afin que vous puissiez apprendre la «nouvelle façon» plus facilement si vous avez appris Java pour la première fois avant la version 8. Même si vous apprenez Java à partir de la version 8, cela vous aidera vous lorsque vous avez besoin de lire du code plus ancien. Sachez simplement que «l'ancienne méthode» ne fait pas partie de l'examen.     
-Comme avec une ArrayList, vous avez besoin d'une instruction d'importation pour travailler avec les classes de date et d'heure. La plupart d'entre eux sont dans le package **java.time**. Pour l'utiliser, ajoutez cette importation à votre programme: 
+Comme avec une ArrayList, vous avez besoin d'une instruction d'importation pour travailler avec les classes de date et d'heure. La plupart d'entre eux sont dans le package **java.time**. Pour l'utiliser, ajoutez cette importation à votre programme : 
 
 		import java.time.*;  
 Dans les sections suivantes, nous examinerons la création, la manipulation et le formatage des dates et des heures.
