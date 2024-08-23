@@ -1240,7 +1240,7 @@ L'interface Comparable n'a qu'une seule méthode. En fait, c'est toute l'interfa
 	public interface Comparable<T> {
 		public int compareTo(T o);
 	}
-Vous voyez l'utilisation de génériques là-dedans ? Cela vous permet d'éviter le cast lors de l'implémentation de compareTo() . Un objet peut être Comparable. Par exemple, nous avons un tas de canards et voulons les trier par nom : 
+Vous voyez l'utilisation de génériques là-dedans ? Cela vous permet d'éviter le cast lors de l'implémentation de compareTo() . Un objet peut être Comparable. Par exemple, nous avons un tas de canards et voulons les trier par nom : 
 
 	public class Duck implements Comparable<Duck> {
 	
@@ -1327,9 +1327,48 @@ Il y a un bon nombre de différences entre Comparable et Comparator:
 | Utilisation lambda expression	  | Non                    | Oui                                |
 | Trier				              | Collections.sort(List) | Collections.sort(List, Comparator) |
 
-* Comparable est destiné aux objets avec un ordre naturel, ce qui signifie que l'objet lui-même doit savoir comment il doit être ordonné.   
-* Une caractéristique de différenciation de base est qu'en utilisant comparable pour une seule comparaison et nous utilisons un seut attribut, alors que nous pouvons écrire plus d'un comparateur personnalisé comme vous le souhaitez pour un objet, nous pouvions également utiliser différents attributs.    
+• Comparable est destiné aux objets avec un ordre naturel, ce qui signifie que l'objet lui-même doit savoir comment il doit être ordonné.   
+• Une caractéristique de différenciation de base est qu'en utilisant comparable pour une seule comparaison et nous utilisons un seut attribut, alors que nous pouvons écrire plus d'un comparateur personnalisé comme vous le souhaitez pour un objet, nous pouvions également utiliser différents attributs.       
+### Comparaison de plusieurs champs (Comparing Multiple Fields) :
+Lors de l'écriture d'un Comparator (comparateur) qui compare plusieurs variables d'instance, le code devient un peu confus. Supposons que nous ayons une classe Squirrel (écureuil), comme illustré ici : 
 
+	public class Squirrel {
+		private int weight;
+		private String species;
+		// Assume getters/setters/constructors provided/ toString
+	}
+Nous voulons écrire un comparateur pour trier par nom d'espèce. Si deux écureuils appartiennent à la même espèce, nous voulons trier en premier celui qui pèse le moins. Nous pourrions le faire avec un code qui ressemble à ceci :  
+
+	class MultiFieldComparator implements Comparator<Squirrel> {
+		public int compare(Squirrel s1, Squirrel s2) {
+			int result = s1.getSpecies().compareTo(s2.getSpecies());
+			if (result != 0) 
+				return result;
+			return s1.getWeight()-s2.getWeight();
+		}
+	}
+Notre méthode main rassemblait àa ça : 
+
+	public static void main(String[] args) {
+		Squirrel spece01 = new Squirrel(12, "spece01");
+		Squirrel spece02 = new Squirrel(13, "spece01");
+		List<Squirrel> squirrelList = new ArrayList<>();
+		squirrelList.add(spece01);
+		squirrelList.add(spece02);
+		Collections.sort(squirrelList, new MultiFieldComparator());
+		System.out.println(squirrelList); // [Squirrel{weight=12, species='spece01'}, Squirrel{weight=13, species='spece01'}]
+	}
+Cela fonctionne, ce n'est cependant pas facile à lire. Il est également facile de se tromper.   
+Alternativement, nous pouvons utiliser des références de méthode et construire le comparateur. Ce code représente la logique pour la même comparaison :   
+
+	Comparator<Squirrel> c = Comparator.comparing(Squirrel::getSpecies)
+									.thenComparingInt(Squirrel::getWeight);
+Cette fois-ci, on enchaîne les méthodes. On crée d'abord un Comparator sur les espèces en ordre croissant. Ensuite, s'il y a égalité, on trie par poids. On peut aussi trier par ordre décroissant. Certaines méthodes sur Comparator, comme thenComparingInt(), sont des méthodes par défaut.     
+
+Supposons que nous voulions trier par ordre décroissant par espèce.  
+
+	var c = Comparator.comparing(Squirrel::getSpecies).reversed();
+L'interface fonctionnelle (Functional Interface) **Comparator** a introduit depuis Java 8 une méthode statique appelée **comparing** qui vous permet de spécifier **une fonction clé (clé de tri)** pour comparer des objets. Cette fonction est utilisée pour extraire une valeur d'un objet et la comparer à cette valeur lors du tri.
 # Travailler avec les dates et les heures: (Working with Dates and Times)   
 A pariter de Java 8, Oracle a complètement repensé la façon dont nous travaillons avec les dates et les heures. Vous pouvez toujours écrire du code «à l'ancienne», mais ces cours ne font pas partie de l'examen. Nous mentionnerons «l'ancienne méthode» dans les scénarios du monde réel afin que vous puissiez apprendre la «nouvelle façon» plus facilement si vous avez appris Java pour la première fois avant la version 8. Même si vous apprenez Java à partir de la version 8, cela vous aidera vous lorsque vous avez besoin de lire du code plus ancien. Sachez simplement que «l'ancienne méthode» ne fait pas partie de l'examen.     
 Comme avec une ArrayList, vous avez besoin d'une instruction d'importation pour travailler avec les classes de date et d'heure. La plupart d'entre eux sont dans le package **java.time**. Pour l'utiliser, ajoutez cette importation à votre programme: 
