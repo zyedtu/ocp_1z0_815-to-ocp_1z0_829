@@ -573,7 +573,7 @@ Récupérer la valuer de retour d'une méthode est facile. Une copie est faite d
 			}
 		}
 # Overloading Methods: (Surcharge de méthodes) 
-Maintenant que vous êtes familiarisé avec les règles de déclaration des méthodes, il est temps de créer des méthodes avec le même nom dans la même classe. La surcharge de méthode se produit lorsqu'il existe différentes signatures de méthode avec le même nom mais des paramètres différents ou de type différents. Tout autre que la signature de méthode peut varier pour les méthodes surchargées. Cela signifie qu'il peut y avoir une différence des modificateurs d'accès, spécificateurs (comme static), types de retour et listes d'exceptions mais n'impliquent pas sur le Overloading de la méthode.   
+Maintenant que vous êtes familiarisé avec les règles de déclaration des méthodes, il est temps de créer des méthodes avec le même nom dans la même classe. **La surcharge de méthode se produit lorsqu'il existe différentes signatures de méthode avec le même nom, mais des paramètres différents ou de type différents**. Tout autre que la signature de méthode peut varier pour les méthodes surchargées. Cela signifie qu'il peut y avoir une différence des modificateurs d'accès, spécificateurs (comme static), types de retour et listes d'exceptions mais n'impliquent pas sur le Overloading de la méthode.   
 Ce sont toutes des méthodes surchargées (Overloading) valides:
 
 		public void fly(int numMiles) { }
