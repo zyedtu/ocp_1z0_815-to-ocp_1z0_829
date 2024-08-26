@@ -42,7 +42,7 @@ D'un autre côté, lorsque vous définissez une nouvelle classe qui étend une c
 # Créer des classes: (Creating Classes)  
 Maintenant que nous avons établi le fonctionnement de l'héritage en Java, nous pouvons l'utiliser pour définir et créer des relations de classe complexes. Dans cette section, nous passerons en revue les bases de la création et de l'utilisation des classes.  
 ### Extension d'une classe: (Extending a Class)   
-En Java, vous pouvez étendre une classe en ajoutant le nom de la classe parent dans la définition à l'aide du mot clé extend. La syntaxe de définition et d'extension d'une classe est affichée ci-dessous:  
+En Java, vous pouvez étendre une classe en ajoutant le nom de la classe parent dans la définition à l'aide du mot clé **extends**. La syntaxe de définition et d'extension d'une classe est affichée ci-dessous:  
 
 	public abstract class ElephantSeal extends Seal {
 		// Methods and Variables defined here
@@ -102,7 +102,7 @@ La variable name est accessible directement parce qu'elle est protected dans la 
 ### Application des modificateurs d'accès aux classes: (Applying Class Access Modifiers) 
 Vous pouvez appliquer des modificateurs d'accès (public, privé, protégé, par défaut) aux méthodes de classe et aux variables. Ce n'est pas surprenant que vous puissiez également appliquer des modificateurs d'accès aux définitions de classe, puisque nous avons ajouté le modificateur d'accès public à presque toutes les classes jusqu'à présent.  
 En Java, une classe de **niveau supérieur (top-level)** est une classe qui n'est pas définie dans une autre classe c'est à dire **n'est pas une classe interne (inner class)**. La plupart des cours de ce livre sont des cours de haut niveau.  
-IIls ne peuvent avoir qu'un accès public ou package-privé. L'application d'un accès public à une classe indique qu'elle peut être référencée et utilisée dans n'importe quelle classe. L'application de l'accès par défaut (package-private), dont vous vous souviendrez est l'absence de tout modificateur d'accès, indique que la classe n'est accessible que par une classe dans le même package.   
+Ils ne peuvent avoir qu'un accès public ou package-privé. L'application d'un accès public à une classe indique qu'elle peut être référencée et utilisée dans n'importe quelle classe. L'application de l'accès par défaut (package-private), dont vous vous souviendrez est l'absence de tout modificateur d'accès, indique que la classe n'est accessible que par une classe dans le même package.   
 * Remarque: Une classe interne **(innner class)** est une classe définie à l'intérieur d'une autre classe (au contraire d'une classe de premier niveau). En plus de l'accès public et package-privé, les classes internes peuvent également avoir un *accès protégé et privé*. Nous discuterons des classes internes au chapitre 9.
 
 Un fichier Java peut avoir plusieurs classes de premier-niveau mais une seule classe de premier niveau avec l'accés public. En fait, il se peut qu'il n'y ait aucune classe publique du tout. L'un des avantages de l'utilisation du modificateur private de package par défaut est que vous pouvez définir plusieurs classes dans le même fichier Java. Par exemple, la définition suivante peut apparaître dans un seul fichier Java nommé Groundhog.java, car il ne contient qu'une seule classe public:  
@@ -747,7 +747,7 @@ Dans cet exemple, le compilateur n'appellerait pas la méthode Canine parent, il
 
 *Définition du sous-type et du super type: (Defining Subtype and SuperType)*  
 Lorsque nous discutons d'héritage et de polymorphisme, nous utilisons souvent le mot sous-type plutôt que sous-classe, depuis que Java inclut l'interface.   
-Un sous-type est la relation entre deux types où un type hérite de l'autre. Si nous définissons X comme étant un sous-type de Yn, alors l'un des éléments suivants est vrai:    
+Un sous-type est la relation entre deux types où un type hérite de l'autre. Si nous définissons X comme étant un sous-type de Y, alors l'un des éléments suivants est vrai:    
 * X et Y sont des classes et X est une sous-classe de Y.  
 * X et Y sont des interfaces, et X est une sous-interface de Y.  
 * X est une classe et Y est une interface, et X implémente Y (soit directement soit via une classe héritée).
@@ -760,7 +760,7 @@ Le redéfinition d'une méthode a des limites. Le compilateur effectue les véri
 
 La première règle consistant à ignorer une méthode est assez explicite. Si deux méthodes ont le même nom mais des signatures différentes, les méthodes sont surchargées et non redéfinies. Les méthodes surchargées sont considérées comme indépendantes et ne partagent pas les mêmes propriétés polymorphes que les méthodes redéfinies.
 
-*Surchargé contre redéfinit: (Overloading vs. Overriding)*      
+###### Surchargé vs redéfinit: (Overloading vs. Overriding)*      
 La surcharge d'une méthode et la redéfinition d'une méthode sont similaires en ce qu'elles impliquent toutes deux a utilisé le même nom. Ils diffèrent en ce qu'une méthode surchargée utilisera une signature différente d'une méthode redéfinit. Cette distinction permet aux méthodes surchargées beaucoup plus de liberté dans la syntaxe qu'une méthode redéfinit n'en aurait. Par exemple, comparez le chargmement de fly() surchargé avec al redefinition de eat() dans la classe Eagle.     
 
 	class Bird {
@@ -902,7 +902,7 @@ Ci-dessous, des exemples qui ne compilent pas:
 	List<? extends Number> list = new ArrayList<String>();
 	// String n'est pas une super-type parent d'Integer, donc il y a une erreur.
 	ArrayList<? super String> cmp = new ArrayList<Integer>();
-###### Redéclarer des méthodes privées: (Redeclaring private Methods)   
+
 Lorsque vous travaillez avec des méthodes redéfinies qui renvoient des génériques, les valeurs de retour doivent être covariantes. En termes de génériques, cela signifie que le type de retour de la classe ou de l'interface déclarée dans la méthode de redéfinition doit être un sous-type de la classe définie dans la classe parente. Le type de paramètre générique doit correspondre exactement au type de son parent.
 Compte tenu de la déclaration suivante pour la classe Mammal, laquelle des deux sous-classes Monkey et Goat compile ?  
 

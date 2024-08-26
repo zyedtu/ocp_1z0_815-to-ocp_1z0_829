@@ -462,4 +462,6 @@ Java permet aux objets d'implémenter une méthode appelée **finalize()** de la
 	protected void finalize throws Throwable{}
 
 Cette fonctionnalité peut être déroutante et difficile à utiliser correctement. En un mot, le garbage collector appelle une fois la méthode finalize(). Si le ramasse-miettes ne s’est pas exécuté, il n’y a pas eu d’appel à finaliser(). Si le garbage collector n'a pas réussi à collecter l'objet et a réessayé plus tard, il n'y a pas eu de deuxième appel à finalize().
-Ce sujet n'est plus à l'examen. En fait, il est obsolète dans Object à partir de Java 9, la documentation officielle indiquant: «Le mécanisme de finalisation est intrinsèquement problématique.» Nous mentionnons la méthode finalize() au cas où Oracle emprunterait à une ancienne question d'examen. N'oubliez pas que finalize() peut s'exécuter zéro ou une fois. Il ne peut pas fonctionner **deux** fois.
+Ce sujet n'est plus à l'examen. En fait, il est obsolète dans Object à partir de Java 9, la documentation officielle indiquant: «Le mécanisme de finalisation est intrinsèquement problématique.» Nous mentionnons la méthode finalize() au cas où Oracle emprunterait à une ancienne question d'examen. N'oubliez pas que finalize() peut s'exécuter zéro ou une fois. Il ne peut pas fonctionner **deux** fois.   
+
+Lorsque le garbage collector (ramasse-miettes) s'exécute, il appelle la méthode finalize() sur chaque objet qui n'a plus de référence. En gros (Basically), System.gc() nettoie la mémoire et utilise finalize() pour se débarrasser des objets individuels.    
