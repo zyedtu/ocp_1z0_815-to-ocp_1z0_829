@@ -896,7 +896,7 @@ Les caractères génériques sont situés dans des positions différentes ont de
 		Collection<?> coll = new ArrayList<Double>();
 		List<? extends Number> listNumber = new ArrayList<Long>();
 		List<? super String> listString = new ArrayList<CharSequence>();
-Ci-dessous, des exemples qui ne compilent pas: 
+Ci-dessous, des exemples qui ne compilent pas : 
 
 	// String n'est pas le sous-type de Number, donc il y a une erreur.
 	List<? extends Number> list = new ArrayList<String>();
@@ -1032,7 +1032,7 @@ Le polymorphisme avec des classes entre en scène lorsqu'*une classe hérite d'u
 
 Java supporte le polymorphisme, la propriété d'un objet peut avoir de nombreuses formes différentes. Plus précisément, un objet Java peut être accédé en utilisant une référence du même type que l'objet, une référence qui est une super-classe de l'objet ou une référence définissant une interface que l'objet implémente, soit directement, soit via une superclasse. 
 
-De plus, un cast n'est pas nécessaire si l'objet est réaffecté à un super type ou à une interface de l'objet.
+De plus, **un cast n'est pas nécessaire si l'objet est réaffecté à un super type** ou à une interface de l'objet.
 En Java, **tous les objets sont accessibles par référence**. En tant que développeur, vous n’avez jamais accès directement à l’objet lui-même.
 
 ### Introduction à l'interface:   
@@ -1098,9 +1098,33 @@ Une fois qu'un nouveau type de référence a été attribué à l'objet, seules 
 		System.out.println(primate.isTailStriped()); // DOES NOT COMPILE
 		primate.printLemur(); //	DOES NOT COMPILE - no Polymorphism
 		
-• la référence hasTail a un accès direct uniquement aux méthodes déﬁnies avec l'interface HasTail, par conséquent, il ne sait pas que la variable *age* fait partie de l’objet.      
-• Le référence hasTail n'a pas accès à lka méthode printLemur() - il n'a pas de Polymorphism (on redéfnit pas la méthode printLemur() elle existe que dans la classe Primate).   
-• De même, le référence primate a accès qu’aux méthodes déﬁnies dans la classe Primate et n’a pas d’accès direct à la méthode isTailStriped() et la méthode printLemur().     
+• la référence hasTail a un accès direct uniquement aux méthodes déﬁnies avec l'interface HasTail, par conséquent, il ne sait pas que la variable *age* fait partie de l’objet.        
+• Le référence hasTail n'a pas accès à lka méthode printLemur() - il n'a pas de Polymorphism (on redéfnit pas la méthode printLemur() elle existe que dans la classe Primate).       
+• De même, le référence primate a accès qu’aux méthodes déﬁnies dans la classe Primate et n’a pas d’accès direct à la méthode isTailStriped() et la méthode printLemur().         
+### overriding method and polymorphism (redéfinir méthode et le polymorphisme) :
+La redéfinition de méthode est important pour le polymorphisme car il **remplace tous les appels à la méthode**, même ceux effectués dans une superclasse.   
+Regardons cet exemple :   
+
+	public class Spider extends Arthropod {
+	
+		public void printName() {
+			System.out.println("Spider");
+		}
+	
+		public static void main(String[] args) {
+			Arthropod a = new Spider();
+			a.printName();
+		}
+	}
+	
+	class Arthropod {
+		protected void printName() {
+			System.out.print("Arthropod" );
+		}
+	}
+Ce code compile et affiche: **Spider**    
+• Il ne faut oublier qu'une méthode redéfinie peut avoir un modificateur d'accès plus large public > protected.  
+• En raison du polymorphisme, la méthode redéfinie remplace la méthode sur tous les appels, même si une variable de référence Arthropod est utilisée.       
 ### Objet contre référence: (Object vs. Reference)   
 En Java, tous les objets sont accessibles par référence, de sorte qu'en tant que développeur, vous n'avez jamais d'accès direct à l'objet lui-même. Conceptuellement, cependant, vous devez considérer l'objet comme l'entité qui existe en mémoire, allouée par l'environnement d'exécution Java. Quel que soit le type de référence que vous avez pour l’objet en mémoire, l’objet lui-même ne change pas. Par exemple, puisque tous les objets héritent de java.lang.Object, ils peuvent tous être réaffectés à java.lang.Object, comme illustré dans l'exemple suivant:   
 
