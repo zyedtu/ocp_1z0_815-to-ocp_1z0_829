@@ -346,7 +346,8 @@ Ce code ne compile pas à cause: *Recursive constructor invocation*
 * this vs. this(): Malgré l'utilisation du même mot-clé, this et this() sont très différents. Le premier, this, fait référence à une instance de la classe, tandis que le second, this(), fait référence à un appel de constructeur dans la classe. L'examen peut essayer de vous tromper en utilisant les deux ensemble, alors assurez-vous de savoir lequel utiliser et pourquoi.
 
 ### Appel du constructeur parent avec super(): (Calling Parent Constructor with super())  
-En Java, la première instruction de chaque constructeur est soit un appel à un autre constructeur de la classe, en utilisant this(), soit un appel à un constructeur dans la classe parent directe, en utilisant super(). Si un constructeur parent prend des arguments, l'appel super() prend également des arguments.  
+En Java, **la première instruction de chaque constructeur** est soit un appel à un autre constructeur de la classe, en utilisant this(), soit un appel à un constructeur dans la classe parent directe, en utilisant super().   
+Si un constructeur parent prend des arguments, **l'appel super() prend également des arguments**.         
 Jetons un coup d'œil à la classe Animal et à sa sous-classe Zebra et voyons comment leurs constructeurs peuvent être correctement écrits pour en appeler un autre:
 
 		public class Animal {
@@ -366,7 +367,7 @@ Jetons un coup d'œil à la classe Animal et à sa sous-classe Zebra et voyons c
 			}
 		}
 Dans la première classe Animal, la première instruction du constructeur est un appel au constructeur parent défini dans java.lang.Object qui ne prend aucun argument.  
- Dans la deuxième classe Zebra, la première instruction du premier constructeur est un appel au constructeur d'Animal, qui prend un seul argument. La classe Zebra comprend également un second constructeur sans argument qui n'appelle pas super() mais appelle à la place l'autre constructeur de la classe Zebra en utilisant this(4).  
+Dans la deuxième classe Zebra, la première instruction du premier constructeur est un appel au constructeur d'Animal, qui prend un seul argument. La classe Zebra comprend également un second constructeur sans argument qui n'appelle pas super() mais appelle à la place l'autre constructeur de la classe Zebra en utilisant this(4).  
 Comme this(), la super() ne peut être utilisée que comme *première instruction du constructeur*. Par exemple, les deux définitions de classe suivantes ne seront pas compilées:   
 
 		public class Zoo {
