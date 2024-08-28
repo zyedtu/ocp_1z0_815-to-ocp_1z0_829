@@ -1210,9 +1210,9 @@ Tout comme les énumérations, un enregistrement peut implémenter une interface
 
 	public interface Bird {}
 	public record Crane(int numberEggs, String name) implements Bird {}
-### Declaring Constructors:  
-Et si vous deviez déclarer un record avec des gardes comme nous l'avons fait plus tôt ? Dans cette section, nous couvrons deux façons d'y parvenir avec des enregistrements.   
-##### The Long Constructor: 
+### Declaring Constructors :  
+Et si vous deviez déclarer un record avec des contrôles comme nous l'avons fait plus tôt ? Dans cette section, nous couvrons deux façons d'y parvenir avec des enregistrements.   
+##### The Long Constructor : 
 Tout d'abord, nous pouvons simplement déclarer le constructeur que le compilateur insère normalement automatiquement, que nous appelons le constructeur long.   
 
 	public record Crane(int numberEggs, String name) {
@@ -1229,13 +1229,15 @@ Le compilateur n'insérera pas de constructeur si vous en définissez un avec la
 	}
 Bien que pouvoir déclarer un constructeur soit une fonctionnalité intéressante des enregistrements, c'est également problématique. Si nous avons 20 champs, nous devrons déclarer des affectations pour chacun, en introduisant le passe-partout que nous avons cherché à supprimer. Oh frere!   
 ##### Compact Constructors:  
-Heureusement, les auteurs de Java ont ajouté la possibilité de définir un constructeur compact pour les enregistrements. Un constructeur compact est un type spécial de constructeur utilisé pour les enregistrements afin de traiter succinctement la validation et les transformations. Il ne prend aucun paramètre et définit implicitement tous les champs. La figure montre un exemple de constructeur compact.
+Heureusement, les auteurs de Java ont ajouté la possibilité de définir **un constructeur compact** pour les enregistrements.     
+Un constructeur compact est un type spécial de constructeur utilisé pour les enregistrements afin de traiter succinctement la validation et les transformations. **Il ne prend aucun paramètre et définit implicitement tous les champs**. La figure montre un exemple de constructeur compact.
 
 ![diagram](declaring_a_compact_constructor.png)
 
-Super! Maintenant, nous pouvons vérifier les valeurs que nous voulons, et nous n'avons pas à lister tous les paramètres du constructeur et les affectations triviales. Java exécutera le constructeur complet après le constructeur compact. Vous devez également vous rappeler qu'un constructeur compact est déclaré sans parenthèses, car l'examen pourrait essayer de vous tromper à ce sujet. Comme le montre la figure, nous pouvons même transformer les paramètres du constructeur comme nous en discuterons plus en détail dans la section suivante.  
+Super ! Maintenant, nous pouvons vérifier les valeurs que nous voulons, et nous n'avons pas à lister tous les paramètres du constructeur et les affectations triviales.   
+Java exécutera le constructeur complet après le constructeur compact. Vous devez également vous rappeler qu'un constructeur compact est déclaré **sans parenthèses**, car l'examen pourrait essayer de vous tromper à ce sujet. Comme le montre la figure, nous pouvons même transformer les paramètres du constructeur comme nous en discuterons plus en détail dans la section suivante.  
 ##### Transforming Parameter:  
-Les constructeurs compacts vous permettent d'appliquer des transformations à n'importe laquelle des valeurs d'entrée. Voyez si vous pouvez comprendre ce que fait le constructeur compact suivant :    
+Les constructeurs compacts vous permettent d'appliquer des transformations à n'importe laquelle des valeurs d'entrée. Voyez si vous pouvez comprendre ce que fait le constructeur compact suivant :    
 
 	public record Crane(int numberEggs, String name) {
 		public Crane {
@@ -1244,7 +1246,7 @@ Les constructeurs compacts vous permettent d'appliquer des transformations à n'
 			name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
 		}
 	}
-Bien que les constructeurs compacts puissent modifier les paramètres du constructeur, ils ne peuvent pas modifier les champs de l'enregistrement. Par exemple, cela ne compile pas :   
+Bien que les constructeurs compacts **puissent modifier les paramètres du constructeur**, ils **ne peuvent pas modifier les champs de l'enregistrement**. Par exemple, cela ne compile pas :   
 
 	public record Crane(int numberEggs, String name) {
 		public Crane {
@@ -1252,7 +1254,7 @@ Bien que les constructeurs compacts puissent modifier les paramètres du constru
 		}
 	}
 La suppression de la référence this permet au code de se compiler, car le paramètre constructeur est modifié à la place.   
-##### Overloaded Constructors:  
+##### Overloaded Constructors :  
 Vous pouvez également créer des constructeurs surchargés qui prennent une liste de paramètres complètement différente. Ils sont plus étroitement liés au constructeur de forme longue et n'utilisent aucune des caractéristiques syntaxiques des constructeurs compacts.    
 
 	public record Crane(int numberEggs, String name) {
@@ -1280,11 +1282,12 @@ Comme vous l'avez vu au chapitre 6, vous ne pouvez pas non plus déclarer deux c
 			this(""); // DOES NOT COMPILE
 		}
 	}
-### Customizing Records:  
-Étant donné que les enregistrements sont axés sur les données, nous nous sommes concentrés sur les fonctionnalités des enregistrements que vous êtes susceptible d'utiliser. Les enregistrements prennent en charge bon nombre des mêmes fonctionnalités qu'une classe. Voici quelques-uns des membres que les dossiers peuvent inclure et que vous devriez connaître pour l'examen :    
-	• Redeéfinir et compact consturcteur  
-	•  Méthodes d'instance, y compris le remplacement de toutes les méthodes fournies (accessors, equals(), hashCode(), toString())   
-	• Classes imbriqués, interfaces, annotations, énumérations et enregistrements.   
+### Customizing Records :  
+Étant donné que les enregistrements sont axés sur les données, nous nous sommes concentrés sur les fonctionnalités des enregistrements que vous êtes susceptible d'utiliser. Les enregistrements prennent en charge bon nombre des mêmes fonctionnalités qu'une classe. Voici quelques-uns des membres que les dossiers peuvent inclure et que vous devriez connaître pour l'examen :
+
+• Re-définir et compact consturcteur.   
+• Méthodes d'instance, y compris le remplacement de toutes les méthodes fournies (accessors, equals(), hashCode(), toString()).      
+• Classes imbriquées, interfaces, annotations, énumérations et enregistrements.        
 	
 À titre d'exemple illustratif, ce qui suit remplace deux méthodes d'instance à l'aide de l'annotation facultative @Override :    
 
@@ -1292,7 +1295,7 @@ Comme vous l'avez vu au chapitre 6, vous ne pouvez pas non plus déclarer deux c
 		@Override public int numberEggs() { return 10; }
 		@Override public String toString() { return name; }
 	}
-Bien que vous puissiez ajouter des méthodes, des champs statiques et d'autres types de données, vous ne pouvez pas ajouter de champs d'instance en dehors de la déclaration d'enregistrement, même s'ils sont privés. Cela va à l'encontre de l'objectif d'utilisation d'un enregistrement et pourrait briser l'immuabilité !    
+Bien que vous puissiez ajouter des méthodes, des champs statiques et d'autres types de données, vous **ne pouvez pas ajouter de champs d'instance en dehors de la déclaration d'enregistrement**, même s'ils sont privés. Cela va à l'encontre de l'objectif d'utilisation d'un enregistrement et pourrait briser l'immuabilité !    
 
 	public record Crane(int numberEggs, String name) {
 		private static int type = 10;
