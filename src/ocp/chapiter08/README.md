@@ -221,8 +221,8 @@ Bien que Java n'autorise pas l'héritage multiple, il permet aux classes d'impl�
 En Java, une interface est définie avec le mot clé interface, analogue au mot clé class utilisé lors de la définition d'une classe. Une classe appelle l'interface en utilisant le mot clé implements dans sa définition de classe.  
 
 	public abstract interface CanBurrow {
-		public static final int MINIMUM_DEPTH = 2;	// Abstract Interface method
-		public abstract int getSpeed(int age);	// Interface variable
+		public static final int MINIMUM_DEPTH = 2;	// Interface variable
+		public abstract int getSpeed(int age);	// Abstract Interface method
 	}
 Les mots clé d'une interface: 
 * public: une interface peut avoir deux modificateur d'accés public ou package-private, comme une classe.  
@@ -983,8 +983,8 @@ Une classe scellée est une classe qui restreint les autres classes qui peuvent 
 
 ![diagram](seclaring-sealed-class.png)
 
-Avez-vous remarqué quelque chose de nouveau ? Java 17 inclut trois nouveaux mots-clés que vous devez connaître pour l'examen. Nous utilisons souvent final avec des sous-classes scellées, mais nous abordons chacune d'elles après avoir couvert les bases.    
-Mots-clés de classe scellée (Sealed Class Keywords):    
+Avez-vous remarqué quelque chose de nouveau ? Java 17 inclut trois nouveaux mots-clés que vous devez connaître pour l'examen. Nous utilisons souvent final avec des sous-classes scellées, mais nous abordons chacune d'elles après avoir couvert les bases.    
+Mots-clés de classe scellée (Sealed Class Keywords) :    
 • sealed: indique qu'une classe ou une interface ne peut pas être étendue/implémentée **que** par un nom de classes ou interfaces.   
 • permits: utilisé avec le mot-clé sealed pour répertorier les classes et les interfaces autorisées.   
 • non-sealed: appliqué à une classe ou une interface qui étend d'une classe scellée, indiquant qu'elle peut être étendue par des classes non spécifiées
@@ -1010,7 +1010,7 @@ Disons que nous créons une classe Penguin et la compilons dans un nouveau packa
 	
 	package b;
 	public final class Emperor extends Penguin {} // DOES NOT COMPILE
-La réponse est qu'une classe scellée doit être déclarée (et compilée) dans le même package que ses sous-classes directes.    
+La réponse est qu'une classe scellée doit être déclarée (et compilée) dans **le même package** que ses sous-classes directes.    
 
 	package zoo;
 	public sealed class Penguin permits Emperor {}
@@ -1020,24 +1020,27 @@ La réponse est qu'une classe scellée doit être déclarée (et compilée) dans
 Ce code aussi ne compile pas, parce que la classe Emperor n'etend pas la classe Penguin.   
 
 ### Specifying the Subclass Modifier (Spécification du modificateur de sous-classe):  
-Alors que certains types, comme les interfaces, ont un certain nombre de modificateurs implicites, ce n'est pas le cas des classes scellées. Chaque classe qui étend directement une classe scellée doit spécifier exactement l'un des trois modificateurs suivants : **final, sealed ou non-sealed**. N'oubliez pas cette règle pour l'examen !    
-	• A final Subclass: Le premier modificateur que nous allons examiner et qui peut être appliqué à une sous-classe directe d’une classe scellée est le modificateur final.   
+Alors que certains types, comme les interfaces, ont un certain nombre de modificateurs implicites, ce n'est pas le cas des classes scellées. Chaque classe qui étend directement une classe scellée doit spécifier exactement l'un des trois modificateurs suivants : **final, sealed ou non-sealed**. N'oubliez pas cette règle pour l'examen !  
+
+• A final Subclass : Le premier modificateur que nous allons examiner et qui peut être appliqué à une sous-classe directe d’une classe scellée est le modificateur final.         
 	
 	public sealed class Antelope permits Gazelle {}
 	
 	public final class Gazelle extends Antelope {}
 	
 	public class George extends Gazelle {} // DOES NOT COMPILE
-Tout comme pour une classe normale, le modificateur final empêche la sous-classe Gazelle d'être étendue davantage.     
-	• A sealed Subclass: Examinons ensuite un exemple utilisant le modificateur sealed:  
+Tout comme pour une classe normale, le modificateur final empêche la sous-classe Gazelle d'être étendue davantage.   
+
+• A sealed Subclass : Examinons ensuite un exemple utilisant le modificateur sealed.       
 	
 	public sealed class Mammal permits Equine {}
 	
 	public sealed class Equine extends Mammal permits Zebra {}
 	
 	public final class Zebra extends Equine {}
-Le modificateur scellé appliqué à la sous-classe Equine signifie que le même type de règles que nous avons appliqué à la classe parent Mammal doit être présent. À savoir, Equine définit sa propre liste de sous-classes autorisées. Notez dans cet exemple que Zebra est une sous-classe indirecte de Mammal mais n'est pas nommé dans la classe Mammal.     
-	• A non-sealed Subclass: Le modificateur non-sealed est utilisé pour ouvrir une classe parent sealed à des sous-classes potentiellement inconnues. Modifions notre exemple précédent pour permettre à MyWolf de compiler sans modifier la déclaration de Wolf :  
+Le modificateur scellé appliqué à la sous-classe Equine signifie que le même type de règles que nous avons appliqué à la classe parent Mammal doit être présent. À savoir, Equine définit sa propre liste de sous-classes autorisées. Notez dans cet exemple que Zebra est une sous-classe indirecte de Mammal mais n'est pas nommé dans la classe Mammal.  
+
+• A non-sealed Subclass : Le modificateur non-sealed est utilisé pour ouvrir une classe parent sealed à des sous-classes potentiellement inconnues. Modifions notre exemple précédent pour permettre à MyWolf de compiler sans modifier la déclaration de Wolf.     
 	
 	public sealed class Wolf permits Timber {}
 	
