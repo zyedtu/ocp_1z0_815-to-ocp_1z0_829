@@ -1051,7 +1051,7 @@ Dans cet exemple, nous pouvons créer une sous-classe indirecte de Wolf, qui ét
 
 	public class MyFurryWolf extends MyWolf {}
 ##### Omitting the permits Clause (Omettre la clause de permis):  
-Jusqu’à présent, tous les exemples que vous avez vus nécessitaient une clause permits lors de la déclaration d’une classe scellée, mais ce n’est pas toujours le cas. Imaginez que vous ayez **un fichier Snake.java** contenant deux classes de niveau supérieur définies :  
+Jusqu’à présent, tous les exemples que vous avez vus nécessitaient une clause permits lors de la déclaration d’une classe scellée, mais ce n’est pas toujours le cas. Imaginez que vous ayez **un fichier Snake.java** contenant deux classes de niveau supérieur définies **(le deux classes sont dans le même fichier)**.    
 
 // Snake.java
 
@@ -1082,17 +1082,17 @@ Une caractéristique distincte d'une interface scellée est que la liste des per
 Qu’en est-il du modificateur appliqué aux interfaces qui étendent l’interface scellée ? Eh bien, rappelez-vous que les interfaces sont implicitement abstraites et ne peuvent pas être marquées comme finales. Pour cette raison, les interfaces qui prolongent une interface scellée ne peuvent être marquées que comme sealed ou non-sealed. Ils ne peuvent pas être marqués comme final.     
 
 ##### Reviewing Sealed Class Rules: 
-Chaque fois que vous voyez une classe dealed à l’examen, portez une attention particulière à la déclaration et aux modificateurs de la sous-classe.  
-	• Les classes sealed sont déclarées avec les modificateurs sealed et permits.   
+Chaque fois que vous voyez une classe sealed à l’examen, portez une attention particulière à la déclaration et aux modificateurs de la sous-classe.  
+	• Les classes sealed sont déclarées avec les modificateurs **sealed** et **permits**.   
 	• Les classes sealed doivent être déclarées dans le même package ou module nommé que leurs sous-classes directes.   
 	• Les sous-classes directes des classes sealed doivent être marquées final, seales ou non-sealed.  
 	• La clause permits est facultative si la classe scellée et ses sous-classes directes sont déclarées dans le même fichier ou si les sous-classes sont imbriquées dans la classe scellée.   
-	• Les interfaces peuvent être dealed pour limiter les classes qui les implémentent ou les interfaces qui les étendent.   
+	• Les interfaces peuvent être sealed pour limiter les classes qui les implémentent ou les interfaces qui les étendent.   
 # Records: (Java SE 16 - 1Z0-829)
 Nous avons gardé le meilleur nouveau type Java pour la fin ! Si vous avez entendu parler des nouvelles fonctionnalités de Java, vous avez probablement entendu parler des enregistrements. Les enregistrements sont passionnants car ils suppriment une tonne de code passe-partout. Avant d'entrer dans les enregistrements, il est utile d'avoir un contexte sur la raison pour laquelle ils ont été ajoutés au langage, nous commençons donc par l'encapsulation.   
 ### Understanding Encapsulation (Comprendre l'encapsulation):  
 Un POJO, qui signifie Plain Old Java Object, est une classe utilisée pour modéliser et transmettre des données, souvent avec peu ou pas de méthodes complexes (d'où la partie "simple" de la définition). Vous avez peut-être également entendu parler d'un JavaBean, qui est un POJO auquel certaines règles supplémentaires sont appliquées.   
-Créons un POJO simple avec deux champs :   
+Créons un POJO simple avec deux champs :   
 
 	public class Crane {
 		int numberEggs;
@@ -1150,7 +1150,7 @@ Pour passer en revue, rappelez-vous que les données (une variable d'instance) s
 	}
 Vous devez omettre les setters pour qu'une classe soit immuable. Revoyez le chapitre 6 pour les règles supplémentaires sur la création d'objets immuables.      
 ### Applying Records:   
-Notre classe Crane comptait 15 lignes. Nous pouvons écrire cela beaucoup plus succinctement, comme le montre la figure . En mettant de côté la clause de garde sur numberEggs dans le constructeur pour un moment, cet enregistrement est équivalent et immuable !   
+Notre classe Crane comptait 15 lignes. Nous pouvons écrire cela beaucoup plus succinctement, comme le montre la figure . En mettant de côté la clause de garde sur numberEggs dans le constructeur pour un moment, cet enregistrement est équivalent et immuable (un record ne crée pas vraiment un objet immuable) !    
 
 ![diagram](defining_a_record.png)
 
@@ -1171,12 +1171,13 @@ Quelques éléments devraient ressortir ici. Premièrement, nous n'avons jamais 
 	var mommy2 = new Crane("Cammy"); // DOES NOT COMPILE
 Pour chaque champ, il crée également un accesseur comme nom de champ, plus un ensemble de parenthèses. Contrairement aux POJO traditionnels ou aux JavaBeans, les méthodes n'ont pas le préfixe get ou is. Juste quelques caractères de plus que les enregistrements vous évitent d'avoir à taper ! Enfin, les enregistrements remplacent un certain nombre de méthodes dans Object pour vous.   
 
-Membres automatiquement ajoutés aux enregistrements (Records):  
-	• Constructeur : un constructeur avec les paramètres dans le même ordre que la déclaration d'enregistrement   
-	• Méthode d'accès : un accesseur pour chaque champ  
-	• equals() : une méthode pour comparer deux éléments qui renvoie true si chaque champ est égal en termes de equals()   
-	• hashCode() : une méthode hashCode() cohérente utilisant tous les champs   
-	• toString() : Une implémentation de toString() qui affiche chaque champ de l'enregistrement dans un format pratique et facile à lire    
+Membres **automatiquement** ajoutés aux enregistrements (Records) :  
+
+• Constructeur : un constructeur avec les paramètres dans le même ordre que la déclaration d'enregistrement.     
+• Méthode d'accès : un accesseur pour chaque champ (exemple : les métodes name() et numberEggs()).   
+• equals() : une méthode pour comparer deux éléments qui renvoie true si chaque champ est égal en termes de equals().    
+• hashCode() : une méthode hashCode() cohérente utilisant tous les champs.  
+• toString() : Une implémentation de toString() qui affiche chaque champ de l'enregistrement dans un format pratique et facile à lire.       
 
 Ce qui suit montre des exemples des nouvelles méthodes. N'oubliez pas que la méthode println() appellera automatiquement la méthode toString() sur tout objet qui lui est passé.  
 
@@ -1199,7 +1200,7 @@ Comme vous l'avez vu, les records n'ont pas de setters. Chaque champ est intrins
 
 	var cousin = new Crane(3, "Jenny");
 	var friend = new Crane(cousin.numberEggs(), "Janeice");
-Tout comme les interfaces sont implicitement abstraites, les enregistrements sont également implicitement finaux. Le modificateur final est facultatif mais supposé.  
+Tout comme les interfaces sont implicitement abstraites, les enregistrements sont également **implicitement finaux**. Le modificateur final est facultatif mais supposé.  
 
 	public final record Crane(int numberEggs, String name) {}
 Comme les énumérations, cela signifie que vous ne pouvez pas étendre ou hériter d'un enregistrement.  
@@ -1209,7 +1210,7 @@ Tout comme les énumérations, un enregistrement peut implémenter une interface
 
 	public interface Bird {}
 	public record Crane(int numberEggs, String name) implements Bird {}
-###Declaring Constructors:  
+### Declaring Constructors:  
 Et si vous deviez déclarer un record avec des gardes comme nous l'avons fait plus tôt ? Dans cette section, nous couvrons deux façons d'y parvenir avec des enregistrements.   
 ##### The Long Constructor: 
 Tout d'abord, nous pouvons simplement déclarer le constructeur que le compilateur insère normalement automatiquement, que nous appelons le constructeur long.   
