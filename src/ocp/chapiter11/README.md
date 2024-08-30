@@ -164,7 +164,7 @@ Cette fois, supposons qu’il y ait 10 signes dans la boîte. On recommence comm
 De même, le contremaître aurait arrêté la ligne après le premier panneau si l'opération du terminal devait trouver le premier panneau créé.   
 
 Dans les sections suivantes, nous couvrons les trois parties du pipeline. Nous discutons également des types spéciaux de flux pour les primitives et de la manière d'imprimer un flux.   
-### Creating Stream Sources (Création Surce de flux)
+### Creating Stream Sources (Création Source de flux)
 En Java, les flux dont nous avons parlé sont représentés par l'interface Stream<T>, définie dans le package java.util.stream.  :
 ##### Création de flux finis: (Creating Finite Streams)   
 Pour plus de simplicité, nous allons commencer par les flux finis. Il existe plusieurs façons de créer
@@ -177,11 +177,11 @@ La 1ere ligne montre comment créer un flux vide.
 La 2eme ligne montre comment créer un flux avec un seul élément.     
 La 3eme ligne montre comment créer un flux à partir d'un varargs. Vous avez sans doute remarqué qu'il n'y a pas de tableau à la ligne 3. La signature de la méthode utilise varargs, qui vous permet de spécifier un tableau ou des éléments individuels.   
 
-Java fournit également un moyen pratique de convertir une collection en flux.   
+Java fournit également un moyen pratique de convertir **une collection en flux**.   
 
 		var list = List.of("a", "b", "c");
 		Stream<String> fromList = list.stream();
-Cette ligne montre qu'il s'agit d'un simple appel de méthode pour créer un flux à partir d'une liste. Ceci est utile car de telles conversions sont courantes.   
+Cette ligne montre qu'il s'agit d'un simple appel de méthode **stream()** (une méthode default dans l'interface Collection) pour créer un flux à partir d'une liste. Ceci est utile car de telles conversions sont courantes.   
 
 ##### Creating Infinite Streams (Créer des flux infinis):    
 Jusqu'à présent, ce n'est pas particulièrement impressionnant. Nous pourrions faire tout cela avec des listes. Cependant, nous ne pouvons pas créer une liste infinie, ce qui rend les flux plus puissants.   

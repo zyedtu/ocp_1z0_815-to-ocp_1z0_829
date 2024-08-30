@@ -1160,7 +1160,7 @@ En fait, le compilateur insère bien plus que les 14 lignes que nous avons écri
 
 Imaginons maintenant que nous ayons 10 champs de données au lieu de 2. Cela fait beaucoup de méthodes qui nous évitent d'écrire. Et nous n'avons même pas parlé des constructeurs ! Pire encore, chaque fois que quelqu'un modifie un champ, des dizaines de lignes de code associées peuvent avoir besoin d'être mises à jour. Par exemple, name peut être utilisé dans le constructeur, toString(), la méthode equals(), etc. Si nous avons une application avec des centaines de POJO, un enregistrement peut nous faire gagner un temps précieux.    
 
-Créer une instance d'une grue et afficher certains champs est facile:  
+Créer une instance d'une grue et afficher certains champs est facile :  
 
 	var mommy = new Crane(4, "Cammy");
 	System.out.println(mommy.numberEggs()); // 4
@@ -1175,7 +1175,7 @@ Membres **automatiquement** ajoutés aux enregistrements (Records) :
 
 • Constructeur : un constructeur avec les paramètres dans le même ordre que la déclaration d'enregistrement.     
 • Méthode d'accès : un accesseur pour chaque champ (exemple : les métodes name() et numberEggs()).   
-• equals() : une méthode pour comparer deux éléments qui renvoie true si chaque champ est égal en termes de equals().    
+• equals() : une méthode pour comparer deux éléments qui renvoi true si chaque champ est égal en termes de equals().    
 • hashCode() : une méthode hashCode() cohérente utilisant tous les champs.  
 • toString() : Une implémentation de toString() qui affiche chaque champ de l'enregistrement dans un format pratique et facile à lire.       
 

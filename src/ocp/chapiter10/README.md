@@ -652,7 +652,7 @@ En revanche, la méthode compose() sur Function enchaîne les interfaces fonctio
 
 	Function<Integer, Integer> combined = after.compose(before);
 	System.out.println(combined.apply(3)); // 8
-Cette fois, l'avant s'exécute en premier, transformant le 3 en 4. Puis l'après s'exécute, doublant le 4 en 8. Toutes les méthodes de cette section sont utiles pour simplifier votre code lorsque vous travaillez avec des interfaces fonctionnelles.   
+Cette fois, l'experssion lambda **before s'exécute en premiere**, transformant le 3 en 4. Puis le after s'exécute, doublant le 4 en 8. Toutes les méthodes de cette section sont utiles pour simplifier votre code lorsque vous travaillez avec des interfaces fonctionnelles.     
 ### Learning the Functional Interfaces for Primitives (Apprendre les interfaces fonctionnelles pour les primitives):   
 Vous vous souvenez quand nous vous avons dit de mémoriser le tableau avec les interfaces fonctionnelles communes ? As-tu? Si ce n’est pas le cas, allez-y maintenant. Nous attendrons. Nous sommes sur le point de le rendre plus impliqué. Il existe également un grand nombre d'interfaces fonctionnelles spéciales pour les primitives. Ceux-ci sont utiles au chapitre 10 lorsque nous abordons les flux et les options.    
 
