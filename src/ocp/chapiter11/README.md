@@ -479,6 +479,36 @@ Ce code affiche:
 	Mama Gorilla
 	Baby Gorilla
 Comme vous pouvez le voir, il a complètement supprimé la liste vide et a modifié tous les éléments de chaque liste pour qu'ils soient au niveau supérieur du flux.   
+Donc dans cet exemple **flatMap** à aplatir **une liste de liste de String à une structure d'une seule liste de String**.    
+La méthode **flatMap** a un autre cas d'utilisation, si nous voulons **aplatir une structure imbriquée en un seul flux**, comme décrit dans l'exemple ci-dessous:   
+
+    public class User {
+    private String name;
+    private List<String> address;
+    
+        public User(String name, List<String> address) {
+            this.name = name;
+            this.address = address;
+        }
+    
+        public List<String> getAddress() {
+            return address;
+        }
+    
+        public static void main(String[] args) {
+            List<User> users = Arrays.asList(
+                    new User("Alice", Arrays.asList("address_01", "address_02")),
+                    new User("Bob", Arrays.asList("address_03", "address_04")),
+                    new User("Charlie", Arrays.asList("address_05"))
+            );
+    
+            List<String> list = users.stream().flatMap(user -> user.getAddress().stream())
+                    .toList();
+    
+            System.out.println(list); // [address_01, address_02, address_03, address_04, address_05]
+        }
+    }
+Ce code nous permet d'afficher **toutes les adresses** de tous les utilisateurs.   
 
 • Concatenating Streams: Bien que flatMap() soit adapté au cas général, il existe un moyen plus pratique de concaténer deux flux.  
 
